@@ -1,0 +1,20 @@
+{
+    "name": "lludss-interface-tests",
+    "version": "1.0.0",
+    "description": "",
+    "scripts": {
+        "test": "cypress run"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.ugent.be/Universiteitsbibliotheek/lludss-interface-tests.git"
+    },
+    "author": "",
+    "bugs": {
+        "url": "https://github.ugent.be/Universiteitsbibliotheek/lludss-interface-tests/issues"
+    },
+    "homepage": "https://github.ugent.be/Universiteitsbibliotheek/lludss-interface-tests/issues",
+    "devDependencies": {
+        "cypress": "^0.20.1"
+    }
+}
