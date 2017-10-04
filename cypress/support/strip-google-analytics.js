@@ -13,14 +13,14 @@ Cypress.on('window:before:load', function(win) {
         }
 
         return createElement.call(win.document, tag);
-    }
+    };
 });
 
 describe('The test runner', function() {
     it('should never load the google analytics script', function() {
         cy.visit('/');
 
-        cy.get('script').each(function(script)  {
+        cy.get('script').each(function(script) {
             cy.wrap(script)
                 .invoke('prop', 'src')
                 .should('not.contain', 'google-analytics.com');
@@ -31,10 +31,10 @@ describe('The test runner', function() {
                 if (gaScriptStripped) {
                     expect($cs).to.have.length(1);
 
-                    expect($cs.prop('src')).to.contain('google-analytics.com')
+                    expect($cs.prop('src')).to.contain('google-analytics.com');
                 } else {
                     expect($cs).to.not.exist;
                 }
-            })
+            });
     });
 });
