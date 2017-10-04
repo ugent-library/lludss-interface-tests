@@ -1,11 +1,13 @@
 describe('Data source rug01', function() {
-    xit('should have more than 1.9M hits', function() {
-        cy.request({
-                url: 'http://lib.ugent.be/catalog/source:rug01',
-                followRedirect: true,
-            })
-            .then((resp) => {
+    it('should have more than 1.9M hits', function() {
+        cy.visit('/catalog/source:rug01');
+
+        cy.get('.search-result-count > strong:eq(2)')
+            .invoke('prop', 'innerText')
+            .should(function(results) {
+                results = parseInt(results.replace(/,/g, ''));
+
+                expect(results).to.be.greaterThan(1900000);
             });
     });
-
 });
