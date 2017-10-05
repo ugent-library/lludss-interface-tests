@@ -1,18 +1,31 @@
-describe('info/about pages', function() {
-    xit('should contain a list of links to /info', function() {
-    
-// messages can be found at http://widgets.lib.ugent.be/list_messages/web_info_en.json for English
-// messages can be found at http://widgets.lib.ugent.be/list_messages/web_info_nl.json for Dutch
-// messages have a "code": "en_registration" or "registration_en" that translates to the url "/en/info/registration"
-    
-    
-    });
+import {validate, parse} from 'fast-xml-parser';
 
-    xit('page should link to onderzoektips', function() {
-    
-// test "onderzoektips.ugent.be"
-    
-    });
+describe('The OAI API', function() {
+    let verbs = {
+        GetRecord: 'identifier=rug01:001365117&metadataPrefix=oai_dc',
+        Identify: null,
+        ListIdentifiers: 'metadataPrefix=oai_dc',
+        ListMetadataFormats: null,
+        ListRecords: 'metadataPrefix=oai_dc',
+        ListSets: null,
+    };
 
+    Object.keys(verbs).forEach(function(verb) {
+        it(`should be able the handle the ${verb} verb`, function() {
+            let url = `/OAI?verb=${verb}`;
+
+            if (verbs[verb]) {
+                url += '&' + verbs[verb];
+            }
+
+            cy.request(url)
+                .its('body')
+                .should(function(body) {
+                    expect(validate(body)).to.be.true;
+
+                    let oai = parse(body);
+                    expect(oai['OAI-PMH']).to.not.have.property('error');
+                });
+        });
+    });
 });
-
