@@ -1,13 +1,21 @@
 describe('The home page', function() {
     it('should redirect HTTP protocol requests to HTTPS', function() {
-        cy.request({
-                url: 'http://lib.ugent.be',
+        let baseUrl = Cypress.config('baseUrl').replace('https://', 'http://');
+
+        cy.request(
+            {
+                url: baseUrl,
                 followRedirect: false,
             })
             .then((resp) => {
                 expect(resp.status).to.eq(302);
-                expect(resp.redirectedToUrl).to.eq('https://lib.ugent.be/');
+                expect(resp.redirectedToUrl).to.match(/^https:\/\//);
             });
+
+        cy.visit(baseUrl);
+
+        cy.location('href')
+            .should('match', /^https:\/\//);
     });
 
     describe('The search form', function() {
@@ -21,7 +29,7 @@ describe('The home page', function() {
                 .within(function($form) {
                     cy.get('label')
                         .should('have.class', 'sr-only')
-                        .should('have.text', 'Search...')
+                        .should('have.text', 'Search...');
 
                     cy.get('input[name="q"]')
                         .should('have.attr', 'autofocus', 'autofocus')
@@ -39,8 +47,7 @@ describe('The home page', function() {
 
             cy.get('#q').type('Liber Floridus{enter}');
 
-            cy.location()
-                .its('href')
+            cy.location('href')
                 .should('end.with', '/en/catalog?q=Liber+Floridus');
         });
     });
