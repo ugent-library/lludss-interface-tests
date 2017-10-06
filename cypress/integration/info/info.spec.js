@@ -6,10 +6,8 @@ describe('The info/about page', function() {
             let widgetsBaseUrl = Cypress.env('widgetsBaseUrl');
             cy.request(`${widgetsBaseUrl}/list_messages/web_info_${lang}.json`)
                 .then(function(response) {
-                    cy.get('.section-title:eq(0) ~ ul > li > a').as('links')
-                        .should('have.length', response.body.messages_total);
-
-                    cy.get('@links')
+                    cy.get('.section-title:eq(0) ~ ul > li > a')
+                        .should('have.length', response.body.messages_total)
                         .each(function($a, index) {
                             let message = response.body.messages[index];
                             let code = message.code.replace(`${lang}_`, '').replace(`_${lang}`, '');
@@ -17,7 +15,7 @@ describe('The info/about page', function() {
                             cy.wrap($a)
                                 .should('have.text', message.title)
                                 .should('have.attr', 'href')
-                                .should('match', new RegExp(`/${lang}/info/${code}`));
+                                .should('match', new RegExp(`/${lang}/info/${code}$`));
                         });
                 });
         });
