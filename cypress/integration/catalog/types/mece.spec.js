@@ -1,7 +1,3 @@
-let parseResultCount = function(results) {
-    return parseInt(results.replace(/,/g, ''));
-};
-
 ['Type', 'Language'].forEach(function(facet) {
     describe(`The MECE ${facet} facet`, function() {
         [

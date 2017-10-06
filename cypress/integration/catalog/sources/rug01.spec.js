@@ -5,7 +5,7 @@ describe('Data source rug01', function() {
         cy.get('.search-result-count > strong:eq(2)')
             .invoke('prop', 'innerText')
             .should(function(results) {
-                results = parseInt(results.replace(/,/g, ''));
+                results = parseResultCount(results);
 
                 expect(results).to.be.greaterThan(1900000);
             });
