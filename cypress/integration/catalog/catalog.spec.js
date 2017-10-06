@@ -62,4 +62,15 @@ describe('The search catalog', function() {
 
         clickFacet('article', subtract, ['chapter', 'newspaper']);
     });
+
+    describe('The language facet', function() {
+        it('should have facet values ordered by frequency descending', function() {
+            cy.contains('.filters .form-group', 'Language')
+                .find('.checkbox label .mute .facet-count')
+                .map(function(facetCount) {
+                    return parseInt(facetCount.innerText.replace(/,/g, ''));
+                })
+                .should('be.sorted.descending');
+        });
+    });
 });

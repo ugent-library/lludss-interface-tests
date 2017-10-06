@@ -31,3 +31,26 @@ chai.Assertion.addProperty('end', function() {
         },
     };
 });
+
+chai.Assertion.addProperty('sorted', function() {
+    return {
+        ascending: () => {
+            this.assert(
+                Cypress._.every(this._obj, function(value, index, array) {
+                    return index === 0 || array[index - 1] <= value;
+                }),
+                'expected #{this} to be sorted ascending',
+                'expected #{this} to not be sorted ascending'
+            );
+        },
+        descending: () => {
+            this.assert(
+                Cypress._.every(this._obj, function(value, index, array) {
+                    return index === 0 || array[index - 1] >= value;
+                }),
+                'expected #{this} to be sorted descending',
+                'expected #{this} to not be sorted descending'
+            );
+        },
+    };
+});
