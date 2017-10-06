@@ -3,7 +3,8 @@ describe('The info/about page', function() {
         it(`should contain a list of links to /${lang}/info`, function() {
             cy.visit(`/${lang}/info`);
 
-            cy.request(`http://widgets.lib.ugent.be/list_messages/web_info_${lang}.json`)
+            let widgetsBaseUrl = Cypress.env('widgetsBaseUrl');
+            cy.request(`${widgetsBaseUrl}/list_messages/web_info_${lang}.json`)
                 .then(function(response) {
                     cy.get('.section-title:eq(0) ~ ul > li > a').as('links')
                         .should('have.length', response.body.messages_total);

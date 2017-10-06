@@ -3,5 +3,8 @@
     "baseUrl": "https://lib.ugent.be",
     "videoRecording": false,
     "defaultCommandTimeout": 2000,
-    "viewportWidth": 1200
+    "viewportWidth": 1200,
+    "env": {
+        "widgetsBaseUrl": "http://widgets.lib.ugent.be"
+    }
 }
