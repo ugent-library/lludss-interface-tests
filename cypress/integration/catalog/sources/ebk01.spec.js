@@ -3,11 +3,7 @@ describe('Data source ebk01', function() {
         cy.visit('/catalog/source:ebk01');
 
         cy.get('.search-result-count > strong:eq(2)')
-            .invoke('prop', 'innerText')
-            .should(function(results) {
-                results = parseResultCount(results);
-
-                expect(results).to.be.greaterThan(100000);
-            });
+            .getCount()
+            .should('be.greaterThan', 100000);
     });
 });

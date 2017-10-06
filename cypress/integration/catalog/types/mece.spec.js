@@ -9,16 +9,19 @@
                 cy.visit(path);
 
                 cy.get('.search-result-count > strong:eq(2)')
-                    .invoke('prop', 'innerText')
-                    .then(function(results) {
-                        let totalResults = parseResultCount(results);
+                    .getCount()
+                    .then(function(totalResults) {
                         let count = 0;
 
                         cy.get(`.filters .form-group h4:contains("${facet}")`)
                             .closest('.form-group')
                             .find('.checkbox label .mute .facet-count')
                             .each(function($count) {
-                                count += parseResultCount($count.prop('innerText'));
+                                cy.wrap($count)
+                                    .getCount()
+                                    .then(function(facetCount) {
+                                        count += facetCount;
+                                    });
                             })
                             .should(function() {
                                 expect(count).to.eq(totalResults);

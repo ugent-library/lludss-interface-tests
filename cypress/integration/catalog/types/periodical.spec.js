@@ -3,11 +3,7 @@ describe('Type periodical', function() {
         cy.visit('/catalog/type:periodical');
 
         cy.get('.search-result-count > strong:eq(2)')
-            .invoke('prop', 'innerText')
-            .should(function(results) {
-                results = parseResultCount(results);
-
-                expect(results).to.be.greaterThan(100000);
-            });
+            .getCount()
+            .should('be.greaterThan', 100000);
     });
 });

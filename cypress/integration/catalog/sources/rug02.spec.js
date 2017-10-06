@@ -3,11 +3,7 @@ describe('Data source rug02', function() {
         cy.visit('/catalog/source:rug02');
 
         cy.get('.search-result-count > strong:eq(2)')
-            .invoke('prop', 'innerText')
-            .should(function(results) {
-                results = parseResultCount(results);
-
-                expect(results).to.be.greaterThan(500000);
-            });
+            .getCount()
+            .should('be.greaterThan', 500000);
     });
 });
