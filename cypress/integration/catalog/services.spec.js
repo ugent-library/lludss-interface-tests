@@ -11,6 +11,31 @@ describe('The catalog services', function() {
             cy.contains('You need to sign in or sign up before continuing.')
                 .should('be.visible');
         });
+
+        it('should be able to request as different items', function() {
+            cy.visit('/catalog/rug01:000763774');
+
+            cy.get('.libservice__status.libservice__status--success:contains("Available in the library, for consultation only")')
+                .as('status')
+                .its('length')
+                .should('be.greaterThan', 5);
+
+            cy.get('@status')
+                .closest('div')
+                .find('.btn:contains("Request")').as('request')
+                .its('length')
+                .should('be.greaterThan', 5);
+
+            cy.get('@request')
+                .map('href')
+                .should(function(urls) {
+                    urls.forEach(function(url) {
+                        expect(url).to.match(/\/catalog\/rug01:000763774\/items\/\d+\/requests\/new$/);
+                    });
+
+                    expect(urls.length).to.eq(Cypress._.uniq(urls).length);
+                });
+        });
     });
 
     describe('Requesting a scanned article', function() {
