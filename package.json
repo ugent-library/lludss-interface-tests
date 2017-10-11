@@ -15,7 +15,7 @@
     },
     "homepage": "https://github.ugent.be/Universiteitsbibliotheek/lludss-interface-tests/issues",
     "devDependencies": {
-        "cypress": "^0.20.3"
+        "cypress": "^1.0.1"
     },
     "dependencies": {
         "fast-xml-parser": "^2.7.4"
