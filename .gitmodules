@@ -1,0 +1,3 @@
+[submodule "cypress/support/common"]
+	path = cypress/support/common
+	url = git@github.com:Universiteitsbibliotheek/cypress-common.git

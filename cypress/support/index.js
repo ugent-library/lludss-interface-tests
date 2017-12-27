@@ -1,5 +1,7 @@
 import './strip-google-analytics';
-import './chai.helpers';
+
+import './common/helpers/chai';
+
 import './commands/get-count';
 import './commands/get-query-parameter';
 import './commands/split';
