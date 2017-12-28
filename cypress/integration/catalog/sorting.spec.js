@@ -1,10 +1,10 @@
-describe('The sort mechanism', function() {
+describe('The sort mechanism', function () {
     [
         'new to old',
         'old to new',
         'by title',
-    ].forEach(function(sort) {
-        it(`should be able to sort ${sort}`, function() {
+    ].forEach(function (sort) {
+        it(`should be able to sort ${sort}`, function () {
             cy.visit('/catalog');
 
             cy.contains('#sort-dropdown .dropdown-menu a', sort).as('sort')
@@ -16,27 +16,27 @@ describe('The sort mechanism', function() {
                 .should('be.visible')
                 .click();
 
-            let expectToBeSorted = function() {
+            let expectToBeSorted = function () {
                 cy.get('@sorted')
-                    .invoke('prop', 'innerText')
+                    .prop('innerText')
                     .should('eq', `Sort ${sort}`);
             };
 
-            let goToRandomPage = function() {
+            let goToRandomPage = function () {
                 cy.get('.search-result-count > strong:last()')
                     .getCount()
-                    .then(function(count) {
+                    .then(function (count) {
                         if (count > 20) {
                             cy.get('ul.pagination > li:not(.disabled) a')
                                 .map('href')
                                 .then(Cypress._.shuffle)
                                 .then(Cypress._.first)
                                 .then((url) => {
-                                    cy.wrap(url, {log: false})
+                                    cy.wrap(url, { log: false })
                                         .getQueryParameter('page', 1)
                                         .then((p) => cy.log(`Going to page ${p}`));
 
-                                    cy.wrap(url, {log: false});
+                                    cy.wrap(url, { log: false });
                                 })
                                 .then(cy.visit)
                                 .then(expectToBeSorted);
@@ -59,14 +59,14 @@ describe('The sort mechanism', function() {
                 'Access',
                 'Faculty',
                 'Language',
-            ].forEach(function(facet) {
+            ].forEach(function (facet) {
                 cy.contains('.filters h4', facet)
                     .closest('.form-group')
                     .find('.checkbox .label')
                     .map('innerText')
                     .then(Cypress._.shuffle)
                     .then(Cypress._.first)
-                    .then(function(value) {
+                    .then(function (value) {
                         cy.log(`Clicking ${facet} facet ${value}`);
 
                         cy.contains('.filters .checkbox label', value).closest('.checkbox').click();

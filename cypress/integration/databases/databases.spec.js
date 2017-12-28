@@ -8,7 +8,7 @@ describe('The databases page', function() {
             .contains('Web of Science')
             .should('have.length', 1)
             .should('be.visible')
-            .invoke('prop', 'href')
+            .prop('href')
             .should('contain', 'webofknowledge.com/WOS');
     });
 
@@ -17,7 +17,7 @@ describe('The databases page', function() {
             .contains('Google Scholar')
             .should('have.length', 1)
             .should('be.visible')
-            .invoke('prop', 'href')
+            .prop('href')
             .should('contain', 'scholar.google.com');
     });
 });

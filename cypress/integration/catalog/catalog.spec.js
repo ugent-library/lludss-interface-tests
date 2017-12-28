@@ -5,7 +5,7 @@ describe('The search catalog', function() {
 
     it('should display the total number of results', function() {
         cy.get('.search-result-count')
-            .invoke('prop', 'innerText')
+            .prop('innerText')
             .should('match', /^1 - 20 of [0-9,]+ Search Results$/);
     });
 

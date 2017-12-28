@@ -22,7 +22,7 @@ describe('The test runner', function() {
 
         cy.get('script').each(function(script) {
             cy.wrap(script)
-                .invoke('prop', 'src')
+                .prop('src')
                 .should('not.contain', 'google-analytics.com');
         });
 

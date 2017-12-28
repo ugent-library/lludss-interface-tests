@@ -14,7 +14,7 @@ describe('The Open Data features', function() {
             .should('be.visible')
             .each(function($a) {
                 cy.wrap($a)
-                    .invoke('prop', 'href')
+                    .prop('href')
                     .should('match', new RegExp(`^${baseUrl}/catalog/rug01:000763774(\.json|\.dc_xml|\.oai_dc_xml|\.marcxml|\.marc)?$`))
                     .then(function(url) {
                         cy.request(url);

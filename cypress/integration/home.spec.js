@@ -37,7 +37,7 @@ describe('The home page', function() {
 
                     cy.get('button[type=submit]')
                         .should('be.visible')
-                        .invoke('prop', 'innerText')
+                        .prop('innerText')
                         .should('contain', 'Search collections');
                 });
         });
