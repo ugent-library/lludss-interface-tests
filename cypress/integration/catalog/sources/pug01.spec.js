@@ -7,12 +7,17 @@ describe('Data source pug01', function() {
             .should('be.greaterThan', 230000);
     });
 
-    it('should have as almost many hits as biblio', function() {
-        cy.visit('/catalog/source:pug01');
+    it('should have almost as many hits as biblio', function() {
+        cy.request('https://biblio.ugent.be/publication?limit=0&format=json')
+            .then((response) => {
+                const biblioTotal = response.body.total;
 
-        // biblio wordt 's nachts gesynced met lib, dus er kan wel wat verschil zijn
-        cy.get('.search-result-count > strong:eq(2)')
-            .getCount()
-            .should('be.lessThan', 240607);
+                cy.visit('/catalog/source:pug01');
+
+                // biblio wordt 's nachts gesynced met lib, dus er kan wel wat verschil zijn
+                cy.get('.search-result-count > strong:eq(2)')
+                    .getCount()
+                    .should('be.within', biblioTotal - 5000, biblioTotal + 5000);
+            });
     });
 });
