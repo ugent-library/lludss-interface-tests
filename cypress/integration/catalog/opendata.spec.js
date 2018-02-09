@@ -1,13 +1,8 @@
 describe('The Open Data features', function() {
     it('should have 6 working hyperlinks in the developers section', function() {
-        cy.server();
-        cy.route('/status/**', {}).as('ajax');
-
         let baseUrl = Cypress.config('baseUrl');
 
         cy.visit('/catalog/rug01:000763774');
-
-        cy.wait('@ajax');
 
         cy.get('#developers dl dd a').as('links')
             .should('exist')
