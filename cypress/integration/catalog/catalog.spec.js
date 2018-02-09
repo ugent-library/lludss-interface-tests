@@ -64,13 +64,11 @@ describe('The search catalog', function() {
     });
 
     describe('The language facet', function() {
-        it('should have facet values ordered by frequency descending', function() {
+        it('should have facet values ordered by name ascending', function() {
             cy.contains('.filters .form-group', 'Language')
-                .find('.checkbox label .mute .facet-count')
-                .map(function(facetCount) {
-                    return parseInt(facetCount.innerText.replace(/,/g, ''));
-                })
-                .should('be.sorted.descending');
+                .find('.checkbox label .label')
+                .map('innerText')
+                .should('be.sorted.ascending');
         });
     });
 });
