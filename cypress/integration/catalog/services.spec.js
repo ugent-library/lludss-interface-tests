@@ -3,7 +3,7 @@ describe('The catalog services', function() {
         it('should redirect to the login page for unauthenticated users', function() {
             cy.visit('/catalog/rug01:002243161');
 
-            cy.get('.btn').contains('Request').click();
+            cy.contains('.btn', 'Request').click();
 
             cy.location('href')
                 .should('end.with', '/user/signin');
@@ -42,7 +42,7 @@ describe('The catalog services', function() {
         it('should redirect to the login page for unauthenticated users', function() {
             cy.visit('/catalog/ser01:000047796');
 
-            cy.get('.btn').contains('Request scanned article').click();
+            cy.contains('.btn', 'Request scanned article').click();
 
             cy.location('href')
                 .should('end.with', '/user/signin');
@@ -56,7 +56,7 @@ describe('The catalog services', function() {
         it('should redirect to the login page for unauthenticated users', function() {
             cy.visit('/catalog/ser01:000047796');
 
-            cy.get('.btn').contains('Request for consultation').click();
+            cy.contains('.btn', 'Request for consultation').click();
 
             cy.location('href')
                 .should('end.with', '/user/signin');
