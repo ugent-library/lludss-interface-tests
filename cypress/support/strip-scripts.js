@@ -33,7 +33,7 @@ Cypress.on('window:before:load', function(win) {
 });
 
 describe('The test runner', function() {
-    it('should never load the google analytics script', function() {
+    it('should never load the stripped scripts', function() {
         cy.visit('/');
 
         cy.get('script').each((script) => {
