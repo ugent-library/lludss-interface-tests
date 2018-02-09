@@ -1,4 +1,4 @@
-import './strip-google-analytics';
+import './strip-scripts';
 
 import './common/helpers/chai';
 import './common/commands/map';
