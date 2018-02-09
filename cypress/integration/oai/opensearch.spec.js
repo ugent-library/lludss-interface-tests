@@ -76,20 +76,20 @@ describe('The opensearch API', function() {
                 });
 
 
-            cy.request('/catalog/opensearch.json?q=liber%20floridus')
+            cy.request('/catalog/opensearch.json?q=RTBF')
                 .its('body')
                 .should(function(body) {
                     expect(body)
                         .to.be.an('array')
                         .and.to.have.length(2);
 
-                    expect(body[0]).to.eq('liber floridus');
+                    expect(body[0]).to.eq('RTBF');
                     expect(body[1])
                         .to.be.an('array')
-                        .and.to.have.length(20);
+                        .and.to.have.length(10);
 
                     body[1].forEach(function(item) {
-                        expect(item.toLowerCase()).to.contain('liber floridus');
+                        expect(item.toLowerCase()).to.contain('rtbf');
                     });
                 });
         });
