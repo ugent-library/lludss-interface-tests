@@ -13,7 +13,12 @@ describe('The catalog services', function() {
         });
 
         it('should be able to request as different items', function() {
+            cy.server();
+            cy.route('/status/*').as('ajax');
+
             cy.visit('/catalog/rug01:000763774');
+
+            cy.wait('@ajax');
 
             cy.get('.libservice__status.libservice__status--success:contains("Available in the library, for consultation only")')
                 .as('status')
