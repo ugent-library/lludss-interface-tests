@@ -14,11 +14,19 @@ describe('The catalog services', function() {
 
         it('should be able to request as different items', function() {
             cy.server();
-            cy.route('/status/*').as('ajax');
+            cy.route('/status/900000106992*').as('ajax1');
+            cy.route('/status/910000094749*').as('ajax2');
+            cy.route('/status/000011045042*').as('ajax3');
+            cy.route('/status/000011045043*').as('ajax4');
+            cy.route('/status/910000089523*').as('ajax5');
+            cy.route('/status/910000089524*').as('ajax6');
+            cy.route('/status/910000089525*').as('ajax7');
+            cy.route('/status/910000089526*').as('ajax8');
+            cy.route('/status/910000089527*').as('ajax9');
 
             cy.visit('/catalog/rug01:000763774');
 
-            cy.wait('@ajax');
+            cy.wait(['@ajax1', '@ajax2', '@ajax3', '@ajax4', '@ajax5', '@ajax6', '@ajax7', '@ajax8', '@ajax9']);
 
             cy.get('.libservice__status.libservice__status--success:contains("Available in the library, for consultation only")')
                 .as('status')
