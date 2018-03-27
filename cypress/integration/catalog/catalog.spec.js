@@ -68,7 +68,7 @@ describe('The search catalog', function() {
             cy.contains('.filters .form-group', 'Language')
                 .find('.checkbox label .label')
                 .map('innerText')
-                .should('be.sorted.ascending');
+                .should('be.ascending');
         });
     });
 });

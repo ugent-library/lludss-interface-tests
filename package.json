@@ -18,6 +18,7 @@
         "cypress": "^2.0.2"
     },
     "dependencies": {
+        "chai-sorted": "^0.2.0",
         "fast-xml-parser": "^2.7.4"
     }
 }

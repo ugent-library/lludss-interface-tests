@@ -1,3 +1,5 @@
+chai.use(require('chai-sorted'));
+
 import './strip-scripts';
 
 import './common/helpers/chai';
