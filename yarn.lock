@@ -279,6 +279,10 @@ cryptiles@2.x.x:
   dependencies:
     boom "2.x.x"
 
+"cypress-common@https://github.com/Universiteitsbibliotheek/cypress-common.git#2.0.0":
+  version "2.0.0"
+  resolved "https://github.com/Universiteitsbibliotheek/cypress-common.git#f2c8be56d2f347230605d296604fc733738f9791"
+
 cypress@^2.1.0:
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/cypress/-/cypress-2.1.0.tgz#a8bd7d9b89c38a1e380db83b57d9bba0dbb95ba4"

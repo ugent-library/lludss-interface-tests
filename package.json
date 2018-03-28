@@ -17,12 +17,14 @@
       "https://github.ugent.be/Universiteitsbibliotheek/lludss-interface-tests/issues"
   },
   "homepage":
-    "https://github.ugent.be/Universiteitsbibliotheek/lludss-interface-tests/issues",
+    "https://github.ugent.be/Universiteitsbibliotheek/lludss-interface-tests",
   "devDependencies": {
     "cypress": "^2.1.0"
   },
   "dependencies": {
     "chai-sorted": "^0.2.0",
+    "cypress-common":
+      "https://github.com/Universiteitsbibliotheek/cypress-common.git#2.0.0",
     "fast-xml-parser": "^2.7.4"
   }
 }
