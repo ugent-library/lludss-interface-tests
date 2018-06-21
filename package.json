@@ -8,23 +8,19 @@
   },
   "repository": {
     "type": "git",
-    "url":
-      "git+https://github.ugent.be/Universiteitsbibliotheek/lludss-interface-tests.git"
+    "url": "git+https://github.ugent.be/Universiteitsbibliotheek/lludss-interface-tests.git"
   },
   "author": "",
   "bugs": {
-    "url":
-      "https://github.ugent.be/Universiteitsbibliotheek/lludss-interface-tests/issues"
+    "url": "https://github.ugent.be/Universiteitsbibliotheek/lludss-interface-tests/issues"
   },
-  "homepage":
-    "https://github.ugent.be/Universiteitsbibliotheek/lludss-interface-tests",
+  "homepage": "https://github.ugent.be/Universiteitsbibliotheek/lludss-interface-tests",
   "devDependencies": {
-    "cypress": "^2.1.0"
+    "cypress": "^3.0.1"
   },
   "dependencies": {
     "chai-sorted": "^0.2.0",
-    "cypress-common":
-      "https://github.com/Universiteitsbibliotheek/cypress-common.git#2.0.0",
+    "cypress-common": "https://github.com/Universiteitsbibliotheek/cypress-common.git#2.0.1",
     "fast-xml-parser": "^2.7.4"
   }
 }

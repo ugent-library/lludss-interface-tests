@@ -1,7 +1,7 @@
 {
   "projectId": "npac3t",
   "baseUrl": "https://lib.ugent.be",
-  "videoRecording": false,
+  "video": false,
   "defaultCommandTimeout": 2000,
   "viewportWidth": 1200,
   "env": {
