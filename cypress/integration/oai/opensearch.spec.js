@@ -52,9 +52,7 @@ describe('The opensearch API', function() {
                         .to.be.an('array').that.has.length(20);
 
                     let titles = Cypress._.map(rss.channel.item, 'title');
-                    titles.forEach(function(title) {
-                        expect(title.toLowerCase()).to.contain('liber floridus');
-                    });
+                    expect(titles.filter(i => i.toLowerCase().indexOf('liber floridus') >= 0)).to.not.be.empty;
                 });
         });
     });
@@ -88,9 +86,7 @@ describe('The opensearch API', function() {
                         .to.be.an('array')
                         .and.to.have.length(10);
 
-                    body[1].forEach(function(item) {
-                        expect(item.toLowerCase()).to.contain('rtbf');
-                    });
+                    expect(body[1].filter(i => i.toLowerCase().indexOf('rtbf') >= 0)).to.not.be.empty;
                 });
         });
     });
