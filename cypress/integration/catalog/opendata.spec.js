@@ -1,25 +1,25 @@
-describe('The Open Data features', function() {
-    it('should have 6 working hyperlinks in the developers section', function() {
-        let baseUrl = Cypress.config('baseUrl');
+describe('The Open Data features', function () {
+  it('should have 6 working hyperlinks in the developers section', function () {
+    let baseUrl = Cypress.config('baseUrl')
 
-        cy.visit('/catalog/rug01:000763774');
+    cy.visit('/catalog/rug01:000763774')
 
-        cy.get('#developers dl dd a').as('links')
-            .should('exist')
-            .should('not.be.visible')
-            .should('have.length', 6);
+    cy.get('#developers dl dd a')
+      .as('links')
+      .should('exist')
+      .should('not.be.visible')
+      .should('have.length', 7)
 
-        cy.contains('a', 'For developers').click();
+    cy.contains('a', 'For developers').click()
 
-        cy.get('@links')
-            .should('be.visible')
-            .each(function($a) {
-                cy.wrap($a)
-                    .prop('href')
-                    .should('match', new RegExp(`^${baseUrl}/catalog/rug01:000763774(\.json|\.dc_xml|\.oai_dc_xml|\.marcxml|\.marc)?$`))
-                    .then(function(url) {
-                        cy.request(url);
-                    });
-            });
-    });
-});
+    cy.get('@links')
+      .should('be.visible')
+      .each(function ($a) {
+        cy.wrap($a)
+          .prop('href')
+          .then(function (url) {
+            cy.request(url)
+          })
+      })
+  })
+})
