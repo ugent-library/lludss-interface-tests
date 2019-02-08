@@ -7,10 +7,43 @@ describe('The related search suggestions', function () {
       .should('have.length', 2)
       .eq(0)
       .should('contain', 'einstein as author')
+      .prop('href')
+      .param('search_field')
+      .should('eq', 'author')
 
     cy.get('@rel')
       .eq(1)
       .should('contain', 'einstein as subject')
+      .prop('href')
+      .param('search_field')
+      .should('eq', 'author_subject')
+  })
+
+  it('should show general, author and subject suggestions in a card catalogue search', function () {
+    cy.visit('/catalog/source:rug02-rug03?q=einstein')
+
+    cy.get('.search-result:last a')
+      .as('rel')
+      .should('have.length', 3)
+      .eq(0)
+      .should('contain', 'einstein in general')
+      .prop('href')
+      .param('search_field')
+      .should('be.null')
+
+    cy.get('@rel')
+      .eq(1)
+      .should('contain', 'einstein as author')
+      .prop('href')
+      .param('search_field')
+      .should('eq', 'author')
+
+    cy.get('@rel')
+      .eq(2)
+      .should('contain', 'einstein as subject')
+      .prop('href')
+      .param('search_field')
+      .should('eq', 'author_subject')
   })
 
   it('should show only subject suggestions in an author field search', function () {
@@ -40,7 +73,35 @@ describe('The related search suggestions', function () {
   it('should only show related search suggestions on the first results page', function () {
     cy.visit('/catalog?q=einstein')
 
-    cy.contains('Related to your search query').should('be.visible')
+    cy.get('.search-result:last')
+      .as('rel')
+      .contains('Related to your search query')
+      .should('be.visible')
+
+    cy.get('@rel')
+      .find('a')
+      .should('have.length', 2)
+
+    cy.get('.pagination .active')
+      .next()
+      .find('a')
+      .click()
+
+    cy.param('page').should('eq', '2')
+    cy.contains('Related to your search query').should('not.exist')
+  })
+
+  it('should only show related search suggestions on the first page of card catalogue results', function () {
+    cy.visit('/catalog/source:rug02-rug03?q=einstein')
+
+    cy.get('.search-result:last')
+      .as('rel')
+      .contains('Related to your search query')
+      .should('be.visible')
+
+    cy.get('@rel')
+      .find('a')
+      .should('have.length', 3)
 
     cy.get('.pagination .active')
       .next()
