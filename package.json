@@ -20,7 +20,7 @@
   },
   "dependencies": {
     "chai-sorted": "^0.2.0",
-    "cypress-common": "https://github.com/Universiteitsbibliotheek/cypress-common.git#3.0.0",
+    "cypress-common": "https://github.com/Universiteitsbibliotheek/cypress-common.git#3.1.0",
     "fast-xml-parser": "^2.7.4"
   }
 }
