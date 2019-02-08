@@ -1,13 +1,13 @@
-chai.use(require('chai-sorted'));
+import './strip-scripts'
 
-import './strip-scripts';
+import 'cypress-common/helpers/chai'
+import 'cypress-common/commands/map'
+import 'cypress-common/commands/prop'
+import 'cypress-common/commands/random'
+import 'cypress-common/commands/param'
+import 'cypress-common/commands/split'
+import 'cypress-common/commands/sum'
 
-import 'cypress-common/helpers/chai';
-import 'cypress-common/commands/map';
-import 'cypress-common/commands/prop';
-import 'cypress-common/commands/random';
-import 'cypress-common/commands/get-query-parameter';
-import 'cypress-common/commands/split';
-import 'cypress-common/commands/sum';
+import './commands/get-count'
 
-import './commands/get-count';
+chai.use(require('chai-sorted'))
