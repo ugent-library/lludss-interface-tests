@@ -50,6 +50,39 @@ describe('The catalog services', function () {
           expect(urls.length).to.eq(Cypress._.uniq(urls).length)
         })
     })
+
+    describe('As an authenticated user', function () {
+      beforeEach(cy.login)
+      ;['rug02', 'rug03', 'rug04'].forEach(db => {
+        it(`should be possible to request via the card catalogue (${db})`, function () {
+          cy.visit(`/catalog/source:${db}`)
+
+          cy.get('.search-result .search-result__title')
+            .random()
+            .click()
+
+          cy.contains('Request').click()
+
+          cy.get('#content > h2').should('have.text', 'New request')
+        })
+      })
+
+      it('should be possible to request a download', function () {
+        cy.visit('/catalog/rug01:002241344')
+
+        cy.contains('Schedule download').click()
+
+        cy.get('#content > h2').should('have.text', 'New download request')
+      })
+
+      it('should be possible to request a license', function () {
+        cy.visit('/catalog/rug01:000763774')
+
+        cy.contains('Order additional license').click()
+
+        cy.get('#content > h2').should('have.text', 'New license request')
+      })
+    })
   })
 
   describe('Requesting a scanned article', function () {
