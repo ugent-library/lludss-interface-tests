@@ -9,5 +9,6 @@ import 'cypress-common/commands/split'
 import 'cypress-common/commands/sum'
 
 import './commands/get-count'
+import './commands/login'
 
 chai.use(require('chai-sorted'))
