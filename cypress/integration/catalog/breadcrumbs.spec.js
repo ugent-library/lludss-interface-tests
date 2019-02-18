@@ -40,8 +40,8 @@ describe('The breadcrumbs', function () {
 
     cy.get('.search-result')
       .random()
-      .find('.search-result__title a')
-      .click({ force: true })
+      .find('.search-result__title')
+      .click()
 
     cy.get('.breadcrumb li')
       .as('bc')
