@@ -95,6 +95,14 @@ describe('The catalog services', function () {
 
       cy.contains('You need to sign in or sign up before continuing.').should('be.visible')
     })
+
+    it('should fail when trying to request a non-serial', function () {
+      cy.login()
+
+      cy.request({url:'/catalog/rug01:001992976/requests/new?scan=true', failOnStatusCode:false})
+        .its('status')
+        .should('eq', 403)
+    })
   })
 
   describe('Requesting an article consultation', function () {
@@ -106,6 +114,14 @@ describe('The catalog services', function () {
       cy.location('href').should('end.with', '/user/signin')
 
       cy.contains('You need to sign in or sign up before continuing.').should('be.visible')
+    })
+
+    it('should fail when trying to request a non-serial', function () {
+      cy.login()
+
+      cy.request({url:'/catalog/rug01:001992976/requests/new', failOnStatusCode: false})
+        .its('status')
+        .should('eq', 403)
     })
   })
 })
