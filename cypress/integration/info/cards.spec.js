@@ -7,7 +7,7 @@ describe('The digitized card catalogue', function () {
         cy.get('form:not(.navbar-form)')
           .should('have.length', 1)
           .should('have.attr', 'action')
-          .should('contain', '/catalog/source:rug02-rug03')
+          .should('contain', '/catalog/source:rug02-rug03-rug04')
       })
 
       it('should be able to search for cards', function () {
@@ -15,24 +15,21 @@ describe('The digitized card catalogue', function () {
           .find('input[name=q]')
           .type('test{enter}')
 
-        cy.location('pathname').should(
-          'end.with',
-          '/catalog/source:rug02-rug03'
-        )
+        cy.location('pathname').should('end.with', '/catalog/source:rug02-rug03-rug04')
 
         cy.param('q').should('eq', 'test')
       })
 
       it('should be able to load a card detail page', function () {
-        cy.get('#documents .meta-title')
+        cy.get('#documents .meta-title a')
           .random()
           .click()
 
-        cy.location('pathname').should('match', /\/catalog\/rug0[23]:\d{9}$/)
+        cy.location('pathname').should('match', /\/catalog\/rug0[234]:\d{9}$/)
 
         cy.param('q').should('eq', 'test')
 
-        cy.param('source').should('eq', 'rug02-rug03')
+        cy.param('source').should('eq', 'rug02-rug03-rug04')
       })
 
       it('should be able to request a card', function () {
@@ -42,7 +39,7 @@ describe('The digitized card catalogue', function () {
           .random()
           .as('request-button')
           .should('have.attr', 'href')
-          .should('match', /\/catalog\/rug0[23]:\d{9}\/requests\/new$/)
+          .should('match', /\/catalog\/rug0[234]:\d{9}\/requests\/new$/)
 
         cy.get('@request-button').click()
 
