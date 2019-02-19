@@ -1,5 +1,5 @@
-describe('The breadcrumbs', function () {
-  it('should display the default catalog breadcrumb without a search query', function () {
+describe('The breadcrumbs', function() {
+  it('should display the default catalog breadcrumb without a search query', function() {
     cy.visit('/catalog')
 
     cy.get('.breadcrumb li')
@@ -17,7 +17,7 @@ describe('The breadcrumbs', function () {
       .should('have.length', 0)
   })
 
-  it('should display the search query', function () {
+  it('should display the search query', function() {
     cy.visit('/catalog?q=einstein')
 
     cy.get('.breadcrumb li')
@@ -35,7 +35,7 @@ describe('The breadcrumbs', function () {
       .should('have.length', 0)
   })
 
-  it('should be able to go back to the search from a detail page', function () {
+  it('should be able to go back to the search from a detail page', function() {
     cy.visit('/catalog?q=einstein')
 
     cy.get('.search-result')
@@ -66,10 +66,8 @@ describe('The breadcrumbs', function () {
     cy.location('href').should('contain', '/catalog?q=einstein')
   })
 
-  it('should display the autocomplete search filter when searching by author', function () {
-    cy.visit(
-      '/catalog?q="Einar%20Ingvald%20Haugen"&search_field=author&ac=viaf:108571359:author'
-    )
+  it('should display the autocomplete search filter when searching by author', function() {
+    cy.visit('/catalog?q="Einar%20Ingvald%20Haugen"&search_field=author&ac=viaf:108571359:author')
 
     cy.get('.breadcrumb li')
       .as('bc')
@@ -97,10 +95,8 @@ describe('The breadcrumbs', function () {
     cy.param('ac').should('be.null')
   })
 
-  it('should display the autocomplete search filter when searching by subject', function () {
-    cy.visit(
-      '/catalog?q="Carl%20Einstein"&search_field=author_subject&ac=viaf:34473997:subject'
-    )
+  it('should display the autocomplete search filter when searching by subject', function() {
+    cy.visit('/catalog?q="Carl%20Einstein"&search_field=author_subject&ac=viaf:34473997:subject')
 
     cy.get('.breadcrumb li')
       .as('bc')
