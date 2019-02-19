@@ -23,7 +23,7 @@ describe('The digitized card catalogue', function () {
       it('should be able to load a card detail page', function () {
         cy.get('#documents .meta-title a')
           .random()
-          .click()
+          .click({ force: true })
 
         cy.location('pathname').should('match', /\/catalog\/rug0[234]:\d{9}$/)
 
