@@ -259,9 +259,9 @@ cross-spawn@^6.0.0:
     shebang-command "^1.2.0"
     which "^1.2.9"
 
-"cypress-common@https://github.com/Universiteitsbibliotheek/cypress-common.git#3.2.0":
-  version "3.2.0"
-  resolved "https://github.com/Universiteitsbibliotheek/cypress-common.git#a8f8a388fa10c4b79a4fb900b47fa1b1366eb6bf"
+"cypress-common@https://github.com/Universiteitsbibliotheek/cypress-common.git#3.2.1":
+  version "3.2.1"
+  resolved "https://github.com/Universiteitsbibliotheek/cypress-common.git#bf231e709c4cf92c60765bf48c80a6f7d45c5729"
 
 cypress@^3.2.0:
   version "3.2.0"
