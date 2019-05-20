@@ -6,17 +6,17 @@ describe('The related search suggestions', function () {
       .as('rel')
       .should('have.length', 2)
       .eq(0)
-      .should('contain', 'einstein as author')
+      .should('contain', '"einstein" as author')
       .prop('href')
-      .param('search_field')
-      .should('eq', 'author')
+      .should('have.param', 'q', '"einstein"')
+      .should('have.param', 'search_field', 'author')
 
     cy.get('@rel')
       .eq(1)
-      .should('contain', 'einstein as subject')
+      .should('contain', '"einstein" as subject')
       .prop('href')
-      .param('search_field')
-      .should('eq', 'author_subject')
+      .should('have.param', 'q', '"einstein"')
+      .should('have.param', 'search_field', 'author_subject')
   })
 
   it('should show general, author and subject suggestions in a card catalogue search', function () {
@@ -26,24 +26,24 @@ describe('The related search suggestions', function () {
       .as('rel')
       .should('have.length', 3)
       .eq(0)
-      .should('contain', 'einstein in general')
+      .should('contain', '"einstein" in general')
       .prop('href')
-      .param('search_field')
-      .should('be.null')
+      .should('have.param', 'q', '"einstein"')
+      .should('not.have.param', 'search_field')
 
     cy.get('@rel')
       .eq(1)
-      .should('contain', 'einstein as author')
+      .should('contain', '"einstein" as author')
       .prop('href')
-      .param('search_field')
-      .should('eq', 'author')
+      .should('have.param', 'q', '"einstein"')
+      .should('have.param', 'search_field', 'author')
 
     cy.get('@rel')
       .eq(2)
-      .should('contain', 'einstein as subject')
+      .should('contain', '"einstein" as subject')
       .prop('href')
-      .param('search_field')
-      .should('eq', 'author_subject')
+      .should('have.param', 'q', '"einstein"')
+      .should('have.param', 'search_field', 'author_subject')
   })
 
   it('should show only subject suggestions in an author field search', function () {
@@ -51,10 +51,10 @@ describe('The related search suggestions', function () {
 
     cy.get('.search-result:last a')
       .should('have.length', 1)
-      .should('contain', 'einstein as subject')
+      .should('contain', '"einstein" as subject')
       .click()
 
-    cy.param('q').should('eq', 'einstein')
+    cy.param('q').should('eq', '"einstein"')
     cy.param('search_field').should('eq', 'author_subject')
   })
 
@@ -63,10 +63,10 @@ describe('The related search suggestions', function () {
 
     cy.get('.search-result:last a')
       .should('have.length', 1)
-      .should('contain', 'einstein as author')
+      .should('contain', '"einstein" as author')
       .click()
 
-    cy.param('q').should('eq', 'einstein')
+    cy.param('q').should('eq', '"einstein"')
     cy.param('search_field').should('eq', 'author')
   })
 
