@@ -54,6 +54,35 @@ describe('The catalog services', function () {
     describe('As an authenticated user', function () {
       beforeEach(cy.login)
 
+      it('should be possible to request an item for loan from BIB (also via locker)', () => {
+        cy.visit('/catalog/rug01:002772075')
+
+        cy.contains('Request').click()
+
+        cy.get('#content > h2').should('have.text', 'Available for loan, request from depot first')
+        cy.get('.meta-location').should('contain', 'Location: BIB.')
+
+        cy.get('input[type=radio][name=reserve_locker]').should('have.length', 2)
+        cy.get('input[type=radio][name=reserve_locker][value=false]').should('be.checked')
+        cy.get('input[type=radio][name=reserve_locker][value=true]').should('not.be.checked')
+        cy.get('fieldset.request-locker-options').should('be.disabled')
+
+        cy.get('input[type=radio][name=reserve_locker][value=true]').click()
+        cy.get('input[type=radio][name=reserve_locker][value=false]').should('not.be.checked')
+        cy.get('fieldset.request-locker-options').should('not.be.disabled')
+      })
+
+      it('should be possible to request an item for loan from DEPX (also via locker)', () => {
+        cy.visit('/catalog/rug01:000896411')
+
+        cy.contains('Request').click()
+
+        cy.get('#content > h2').should('have.text', 'Available for loan, request from depot first')
+        cy.get('.meta-location').should('contain', 'Location: DEP')
+
+        cy.get('input[type=radio][name=reserve_locker]').should('have.length', 2)
+      })
+
       it('should be possible to request an item for loan from an external library', () => {
         cy.visit('/catalog/rug01:000457747')
 
