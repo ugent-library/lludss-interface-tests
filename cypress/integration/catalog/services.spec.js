@@ -53,7 +53,21 @@ describe('The catalog services', function () {
 
     describe('As an authenticated user', function () {
       beforeEach(cy.login)
-      ;['rug02', 'rug03', 'rug04'].forEach(db => {
+
+      it('should be possible to request an item for loan from an external library', () => {
+        cy.visit('/catalog/rug01:000457747')
+
+        cy.contains('Request').click()
+
+        cy.get('#content > h2').should('have.text', 'Available for loan, request from depot first')
+        cy.get('.meta-location').should('contain', 'Location: PPW.')
+
+        // Should not be able to loan via locker because PPW
+        cy.get('input[type=radio][name=reserve_locker]').should('not.exist')
+      })
+
+      const sources = ['rug02', 'rug03', 'rug04']
+      sources.forEach(db => {
         it(`should be possible to request via the card catalogue (${db})`, function () {
           cy.visit(`/catalog/source:${db}`)
 
@@ -96,10 +110,23 @@ describe('The catalog services', function () {
       cy.contains('You need to sign in or sign up before continuing.').should('be.visible')
     })
 
+    it('should redirect to the request form for authenticated users', function () {
+      cy.login()
+
+      cy.visit('/catalog/ser01:000047796')
+
+      cy.contains('.btn', 'Request scanned article').click()
+
+      cy.location('pathname').should('end.with', '/catalog/ser01:000047796/requests/new')
+      cy.param('scan').should('eq', 'true')
+
+      cy.get('#content > h2').should('have.text', 'New scan request')
+    })
+
     it('should fail when trying to request a non-serial', function () {
       cy.login()
 
-      cy.request({url:'/catalog/rug01:001992976/requests/new?scan=true', failOnStatusCode:false})
+      cy.request({ url: '/catalog/rug01:001992976/requests/new?scan=true', failOnStatusCode: false })
         .its('status')
         .should('eq', 403)
     })
@@ -116,10 +143,23 @@ describe('The catalog services', function () {
       cy.contains('You need to sign in or sign up before continuing.').should('be.visible')
     })
 
+    it('should redirect to the request form for authenticated users', function () {
+      cy.login()
+
+      cy.visit('/catalog/ser01:000047796')
+
+      cy.contains('.btn', 'Request for consultation').click()
+
+      cy.location('pathname').should('end.with', '/catalog/ser01:000047796/requests/new')
+      cy.param('scan').should('be.null')
+
+      cy.get('#content > h2').should('have.text', 'New consultation request')
+    })
+
     it('should fail when trying to request a non-serial', function () {
       cy.login()
 
-      cy.request({url:'/catalog/rug01:001992976/requests/new', failOnStatusCode: false})
+      cy.request({ url: '/catalog/rug01:001992976/requests/new', failOnStatusCode: false })
         .its('status')
         .should('eq', 403)
     })
