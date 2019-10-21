@@ -4,7 +4,8 @@
   "description": "Integration tests for lludss-interface project",
   "license": "MIT",
   "scripts": {
-    "test": "cypress run"
+    "test": "cypress run",
+    "test-local": "cypress open --detached --config baseUrl=http://localhost:3000,chromeWebSecurity=false"
   },
   "repository": {
     "type": "git",
