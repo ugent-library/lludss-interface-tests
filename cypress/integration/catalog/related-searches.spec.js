@@ -50,7 +50,7 @@ describe('The related search suggestions', function () {
     cy.visit('/catalog?q=einstein&search_field=author')
 
     cy.get('.search-result:last a')
-      .should('have.length', 1)
+      .should('exist')
       .should('contain', '"einstein" as subject')
       .click()
 
@@ -62,7 +62,7 @@ describe('The related search suggestions', function () {
     cy.visit('/catalog?q=einstein&search_field=author_subject')
 
     cy.get('.search-result:last a')
-      .should('have.length', 1)
+      .should('exist')
       .should('contain', '"einstein" as author')
       .click()
 
