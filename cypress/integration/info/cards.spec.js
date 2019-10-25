@@ -5,7 +5,7 @@ describe('The digitized card catalogue', function () {
         cy.visit(`/${lang}/info/cards`)
 
         cy.get('form:not(.navbar-form)')
-          .should('have.length', 1)
+          .should('exist')
           .should('have.attr', 'action')
           .should('contain', '/catalog/source:rug02-rug03-rug04')
       })
