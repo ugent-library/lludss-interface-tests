@@ -1,17 +1,15 @@
 import { parse } from 'fast-xml-parser'
 
 let parseOptions = {
-  ignoreTextNodeAttr: false,
-  attrPrefix: '@'
+  ignoreAttributes: false,
+  attributeNamePrefix: '@'
 }
 
-describe('The opensearch API', function() {
-  it('should produce OpenSearch description', function() {
+describe('The opensearch API', () => {
+  it('should produce OpenSearch description', () => {
     cy.request('/catalog/opensearch.xml')
-      .then(function(response) {
-        return parse(response.body, parseOptions).OpenSearchDescription
-      })
-      .should(function(openSearch) {
+      .then(response => parse(response.body, parseOptions).OpenSearchDescription)
+      .should(openSearch => {
         expect(openSearch).to.have.property('ShortName', 'Ghent University Library')
         expect(openSearch).to.have.property('Description', 'Ghent University Library Search')
         expect(openSearch)
@@ -26,13 +24,11 @@ describe('The opensearch API', function() {
       })
   })
 
-  describe('The RSS API', function() {
-    it('should produce search results', function() {
+  describe('The RSS API', () => {
+    it('should produce search results', () => {
       cy.request('/catalog.rss?q=troisieme%20Belvedere')
-        .then(function(response) {
-          return parse(response.body, parseOptions).rss
-        })
-        .should(function(rss) {
+        .then(response => parse(response.body, parseOptions).rss)
+        .should(rss => {
           expect(rss)
             .to.have.property('channel')
             .and.to.have.property('title', 'Ghent University Library Search Results')
@@ -44,10 +40,8 @@ describe('The opensearch API', function() {
         })
 
       cy.request('/catalog.rss?q=liber+floridus')
-        .then(function(response) {
-          return parse(response.body, parseOptions).rss
-        })
-        .should(function(rss) {
+        .then(response => parse(response.body, parseOptions).rss)
+        .should(rss => {
           expect(rss.channel.item)
             .to.be.an('array')
             .that.has.length(20)
@@ -58,11 +52,11 @@ describe('The opensearch API', function() {
     })
   })
 
-  describe('The suggestions API', function() {
-    it('should produce suggestions', function() {
+  describe('The suggestions API', () => {
+    it('should produce suggestions', () => {
       cy.request('/catalog/opensearch.json?q=belvedere+troisieme')
         .its('body')
-        .should(function(body) {
+        .should(body => {
           expect(body)
             .to.be.an('array')
             .and.to.have.length(2)
@@ -76,7 +70,7 @@ describe('The opensearch API', function() {
 
       cy.request('/catalog/opensearch.json?q=RTBF')
         .its('body')
-        .should(function(body) {
+        .should(body => {
           expect(body)
             .to.be.an('array')
             .and.to.have.length(2)
