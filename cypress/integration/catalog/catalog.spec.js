@@ -39,6 +39,8 @@ describe('The search catalog', function() {
 
       cy.get('@' + name).click()
 
+      cy.wait(0)
+
       cy.param('type')
         .split('-')
         .should('have.all.members', activeFacets)
