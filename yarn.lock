@@ -269,14 +269,14 @@ cross-spawn@^6.0.0:
     shebang-command "^1.2.0"
     which "^1.2.9"
 
-"cypress-common@https://github.com/Universiteitsbibliotheek/cypress-common.git#3.6.0":
-  version "3.6.0"
-  resolved "https://github.com/Universiteitsbibliotheek/cypress-common.git#11189fd89c81471032f77cdda0a130425e1ef3cd"
+"cypress-common@https://github.com/Universiteitsbibliotheek/cypress-common.git#3.7.0":
+  version "3.7.0"
+  resolved "https://github.com/Universiteitsbibliotheek/cypress-common.git#1c69519f30ac44101259a402a0212044567888fc"
 
-cypress@^3.6.0:
-  version "3.6.0"
-  resolved "https://registry.yarnpkg.com/cypress/-/cypress-3.6.0.tgz#b7c88c169970aeb74a00182a1e8dc43a355d9eea"
-  integrity sha512-ODhbOrH1XZx0DUoYmJSvOSbEQjycNOpFYe7jOnHkT1+sdsn2+uqwAjZ1x982q3H4R/5iZjpSd50gd/iw2bofzg==
+cypress@^3.7.0:
+  version "3.7.0"
+  resolved "https://registry.yarnpkg.com/cypress/-/cypress-3.7.0.tgz#e2cd71b87b6ce0d4c72c6ea25da1005d75c1f231"
+  integrity sha512-o+vfRxqAba8TduelzfZQ4WHmj2yNEjaoO2EuZ8dZ9pJpuW+WGtBGheKIp6zkoQsp8ZgFe8OoHh1i2mY8BDnMAw==
   dependencies:
     "@cypress/listr-verbose-renderer" "0.4.1"
     "@cypress/xvfb" "1.2.4"
