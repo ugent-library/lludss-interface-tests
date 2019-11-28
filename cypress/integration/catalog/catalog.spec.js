@@ -39,7 +39,7 @@ describe('The search catalog', function() {
 
       cy.get('@' + name).click()
 
-      cy.wait(0)
+      cy.wait(1000)
 
       cy.param('type')
         .split('-')
