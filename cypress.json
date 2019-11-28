@@ -6,6 +6,5 @@
   "viewportWidth": 1200,
   "env": {
     "widgetsBaseUrl": "http://widgets.lib.ugent.be"
-  },
-  "chromeWebSecurity": false
+  }
 }
