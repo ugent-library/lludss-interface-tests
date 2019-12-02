@@ -37,7 +37,9 @@ describe('The search catalog', function() {
         .getCount()
         .then(method)
 
-      cy.get('@' + name).click()
+      cy.get('@' + name)
+        .find('label')
+        .click()
 
       cy.param('type')
         .split('-')
