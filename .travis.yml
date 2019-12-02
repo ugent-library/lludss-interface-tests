@@ -4,7 +4,7 @@ node_js:
   - 10
 
 script:
-  - yarn test --config video=true --record --key $CYPRESS_DASHBOARD_KEY --spec cypress/integration/catalog/catalog.spec.js
+  - yarn test --config video=true --record --key $CYPRESS_DASHBOARD_KEY
 
 cache:
   yarn: true
