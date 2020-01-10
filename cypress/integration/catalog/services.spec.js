@@ -83,6 +83,17 @@ describe('The catalog services', function () {
         cy.get('input[type=radio][name=reserve_locker]').should('have.length', 2)
       })
 
+      it('should not be possible to request a dummy barcode item via locker', () => {
+        cy.visit('/catalog/rug01:000320574')
+
+        cy.contains('Request').click()
+
+        cy.get('#content > h2').should('have.text', 'Available for loan, request from depot first')
+        cy.get('.meta-location').should('contain', 'Location: BIB.')
+
+        cy.get('input[type=radio][name=reserve_locker]').should('not.exist')
+      })
+
       it('should be possible to request an item for loan from an external library', () => {
         cy.visit('/catalog/rug01:000457747')
 
