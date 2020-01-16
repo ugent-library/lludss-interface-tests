@@ -1,5 +1,3 @@
-import './strip-scripts'
-
 import 'cypress-common/helpers/chai'
 import 'cypress-common/commands/map'
 import 'cypress-common/commands/prop'
