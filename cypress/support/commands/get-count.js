@@ -1,4 +1,8 @@
-Cypress.Commands.add('getCount', { prevSubject: 'element' }, subject => {
+Cypress.Commands.add('getCount', { prevSubject: ['element', 'optional'] }, subject => {
+  if (!subject) {
+    subject = Cypress.$('.search-result-count > strong:last()')
+  }
+
   let text = subject.prop('innerText')
   let count = parseInt(text.replace(/,/g, ''))
 

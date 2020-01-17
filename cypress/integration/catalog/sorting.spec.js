@@ -1,6 +1,6 @@
-describe('The sort mechanism', function () {
-  ;['new to old', 'old to new', 'by title'].forEach(function (sort) {
-    it(`should be able to sort ${sort}`, function () {
+describe('The sort mechanism', function() {
+  ;['new to old', 'old to new', 'by title'].forEach(function(sort) {
+    it(`should be able to sort ${sort}`, function() {
       cy.visit('/catalog')
 
       cy.contains('#sort-dropdown .dropdown-menu a', sort)
@@ -15,33 +15,31 @@ describe('The sort mechanism', function () {
         .should('be.visible')
         .click()
 
-      let expectToBeSorted = function () {
+      let expectToBeSorted = function() {
         cy.get('@sorted')
           .prop('innerText')
           .should('eq', `Sort ${sort}`)
       }
 
-      let goToRandomPage = function () {
-        cy.get('.search-result-count > strong:last()')
-          .getCount()
-          .then(function (count) {
-            if (count > 20) {
-              cy.get('ul.pagination > li:not(.disabled):not(.active) a')
-                .map('href')
-                .random()
-                .then(url => {
-                  cy.wrap(url, { log: false })
-                    .param('page', 1)
-                    .then(p => cy.log(`Going to page ${p}`))
+      let goToRandomPage = function() {
+        cy.getCount().then(function(count) {
+          if (count > 20) {
+            cy.get('ul.pagination > li:not(.disabled):not(.active) a')
+              .map('href')
+              .random()
+              .then(url => {
+                cy.wrap(url, { log: false })
+                  .param('page', 1)
+                  .then(p => cy.log(`Going to page ${p}`))
 
-                  cy.wrap(url, { log: false })
-                })
-                .then(cy.visit)
-                .then(expectToBeSorted)
-            } else {
-              cy.log('Cannot switch to other page, not enough results')
-            }
-          })
+                cy.wrap(url, { log: false })
+              })
+              .then(cy.visit)
+              .then(expectToBeSorted)
+          } else {
+            cy.log('Cannot switch to other page, not enough results')
+          }
+        })
       }
 
       expectToBeSorted()
@@ -52,13 +50,13 @@ describe('The sort mechanism', function () {
       cy.contains('.filters .checkbox label', 'book').click()
 
       // Click random a value in each facet and retest
-      ;['Type', 'Access', 'Faculty', 'Language'].forEach(function (facet) {
+      ;['Type', 'Access', 'Faculty', 'Language'].forEach(function(facet) {
         cy.contains('.filters h4', facet)
           .closest('.form-group')
           .find('.checkbox .label')
           .map('innerText')
           .random()
-          .then(function (value) {
+          .then(function(value) {
             cy.log(`Clicking ${facet} facet ${value}`)
 
             cy.contains('.filters .checkbox label', value)

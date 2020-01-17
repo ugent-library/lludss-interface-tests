@@ -22,11 +22,11 @@ describe('The search catalog', function() {
   it('should be able to interchange type facets', function() {
     let counter = 0
 
-    let add = function(amount) {
+    let add = amount => {
       counter += amount
     }
 
-    let subtract = function(amount) {
+    let subtract = amount => {
       counter -= amount
     }
 
@@ -45,11 +45,9 @@ describe('The search catalog', function() {
         .split('-')
         .should('have.all.members', activeFacets)
 
-      cy.get('.search-result-count > strong:eq(2)')
-        .getCount()
-        .should(function(count) {
-          expect(count).to.eq(counter)
-        })
+      cy.getCount().should(count => {
+        expect(count).to.eq(counter)
+      })
     }
 
     clickFacet('book', add, ['book'])
