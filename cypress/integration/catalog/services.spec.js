@@ -203,5 +203,21 @@ describe('The catalog services', () => {
         .its('status')
         .should('eq', 403)
     })
+
+    it('should not allow invalid e-mail addresses', () => {
+      cy.login()
+
+      cy.visit('/catalog/rug01:002020092/items/VT0354287/requests/new')
+
+      cy.get('#email')
+        .prop('type', 'text')
+        .type('user@ugent .be')
+
+      cy.contains('Request').click()
+
+      cy.get('.alert.alert-danger')
+        .should('be.visible')
+        .should('contain', 'E-mail address is invalid.')
+    })
   })
 })
