@@ -1,6 +1,6 @@
-describe('The catalog services', function () {
-  describe('Requesting an item', function () {
-    it('should redirect to the login page for unauthenticated users', function () {
+describe('The catalog services', () => {
+  describe('Requesting an item', () => {
+    it('should redirect to the login page for unauthenticated users', () => {
       cy.visit('/catalog/rug01:002243161')
 
       cy.contains('.btn', 'Request').click()
@@ -10,7 +10,7 @@ describe('The catalog services', function () {
       cy.contains('You need to sign in or sign up before continuing.').should('be.visible')
     })
 
-    it('should be able to request as different items', function () {
+    it('should be able to request as different items', () => {
       cy.server()
       cy.route('/status/900000106992*').as('ajax1')
       cy.route('/status/910000094749*').as('ajax2')
@@ -42,8 +42,8 @@ describe('The catalog services', function () {
 
       cy.get('@request')
         .map('href')
-        .should(function (urls) {
-          urls.forEach(function (url) {
+        .should(urls => {
+          urls.forEach(url => {
             expect(url).to.match(/\/catalog\/rug01:000763774\/items\/\d+\/requests\/new$/)
           })
 
@@ -51,7 +51,7 @@ describe('The catalog services', function () {
         })
     })
 
-    describe('As an authenticated user', function () {
+    describe('As an authenticated user', () => {
       beforeEach(cy.login)
 
       it('should be possible to request an item for loan from BIB (also via locker)', () => {
@@ -108,7 +108,7 @@ describe('The catalog services', function () {
 
       const sources = ['rug02', 'rug03', 'rug04']
       sources.forEach(db => {
-        it(`should be possible to request via the card catalogue (${db})`, function () {
+        it(`should be possible to request via the card catalogue (${db})`, () => {
           cy.visit(`/catalog/source:${db}`)
 
           cy.get('.search-result .search-result__title')
@@ -121,7 +121,7 @@ describe('The catalog services', function () {
         })
       })
 
-      it('should be possible to request a download', function () {
+      it('should be possible to request a download', () => {
         cy.visit('/catalog/rug01:002241344')
 
         cy.contains('Schedule download').click()
@@ -129,7 +129,7 @@ describe('The catalog services', function () {
         cy.get('#content > h2').should('have.text', 'New download request')
       })
 
-      it('should be possible to request a license', function () {
+      it('should be possible to request a license', () => {
         cy.visit('/catalog/rug01:000763774')
 
         cy.contains('Order additional license').click()
@@ -139,8 +139,8 @@ describe('The catalog services', function () {
     })
   })
 
-  describe('Requesting a scanned article', function () {
-    it('should redirect to the login page for unauthenticated users', function () {
+  describe('Requesting a scanned article', () => {
+    it('should redirect to the login page for unauthenticated users', () => {
       cy.visit('/catalog/ser01:000047796')
 
       cy.contains('.btn', 'Request scanned article').click()
@@ -150,7 +150,7 @@ describe('The catalog services', function () {
       cy.contains('You need to sign in or sign up before continuing.').should('be.visible')
     })
 
-    it('should redirect to the request form for authenticated users', function () {
+    it('should redirect to the request form for authenticated users', () => {
       cy.login()
 
       cy.visit('/catalog/ser01:000047796')
@@ -163,7 +163,7 @@ describe('The catalog services', function () {
       cy.get('#content > h2').should('have.text', 'New scan request')
     })
 
-    it('should fail when trying to request a non-serial', function () {
+    it('should fail when trying to request a non-serial', () => {
       cy.login()
 
       cy.request({ url: '/catalog/rug01:001992976/requests/new?scan=true', failOnStatusCode: false })
@@ -172,8 +172,8 @@ describe('The catalog services', function () {
     })
   })
 
-  describe('Requesting an article consultation', function () {
-    it('should redirect to the login page for unauthenticated users', function () {
+  describe('Requesting an article consultation', () => {
+    it('should redirect to the login page for unauthenticated users', () => {
       cy.visit('/catalog/ser01:000047796')
 
       cy.contains('.btn', 'Request for consultation').click()
@@ -183,7 +183,7 @@ describe('The catalog services', function () {
       cy.contains('You need to sign in or sign up before continuing.').should('be.visible')
     })
 
-    it('should redirect to the request form for authenticated users', function () {
+    it('should redirect to the request form for authenticated users', () => {
       cy.login()
 
       cy.visit('/catalog/ser01:000047796')
@@ -196,7 +196,7 @@ describe('The catalog services', function () {
       cy.get('#content > h2').should('have.text', 'New consultation request')
     })
 
-    it('should fail when trying to request a non-serial', function () {
+    it('should fail when trying to request a non-serial', () => {
       cy.login()
 
       cy.request({ url: '/catalog/rug01:001992976/requests/new', failOnStatusCode: false })
