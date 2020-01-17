@@ -1,5 +1,5 @@
-describe('The breadcrumbs', function () {
-  it('should display the default catalog breadcrumb without a search query', function () {
+describe('The breadcrumbs', () => {
+  it('should display the default catalog breadcrumb without a search query', () => {
     cy.visit('/catalog')
 
     cy.get('.breadcrumb li')
@@ -17,7 +17,7 @@ describe('The breadcrumbs', function () {
       .should('not.exist')
   })
 
-  it('should display the search query', function () {
+  it('should display the search query', () => {
     cy.visit('/catalog?q=einstein')
 
     cy.get('.breadcrumb li')
@@ -35,11 +35,11 @@ describe('The breadcrumbs', function () {
       .should('not.exist')
   })
 
-  it('should be able to go back to the search from a detail page', function () {
+  it.only('should be able to go back to the search from a detail page', () => {
     cy.visit('/catalog?q=einstein')
 
     cy.get('.search-result')
-      .random()
+      .random(20) // The related search block also matches this selector but would fail the test
       .find('.search-result__title a')
       .click({ force: true })
 
@@ -66,7 +66,7 @@ describe('The breadcrumbs', function () {
     cy.location('href').should('contain', '/catalog?q=einstein')
   })
 
-  it('should display the autocomplete search filter when searching by author', function () {
+  it('should display the autocomplete search filter when searching by author', () => {
     cy.visit('/catalog?q="Einar%20Ingvald%20Haugen"&search_field=author&ac=viaf:108571359:author')
 
     cy.get('.breadcrumb li')
@@ -95,7 +95,7 @@ describe('The breadcrumbs', function () {
     cy.param('ac').should('be.null')
   })
 
-  it('should display the autocomplete search filter when searching by subject', function () {
+  it('should display the autocomplete search filter when searching by subject', () => {
     cy.visit('/catalog?q="Carl%20Einstein"&search_field=author_subject&ac=viaf:34473997:subject')
 
     cy.get('.breadcrumb li')
