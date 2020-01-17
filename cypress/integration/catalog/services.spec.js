@@ -136,6 +136,20 @@ describe('The catalog services', () => {
 
         cy.get('#content > h2').should('have.text', 'New license request')
       })
+
+      it('should not allow invalid e-mail addresses', () => {
+        cy.visit('/catalog/rug01:002020092/items/VT0354287/requests/new')
+
+        cy.get('#email')
+          .prop('type', 'text')
+          .type('user@ugent .be')
+
+        cy.contains('Request').click()
+
+        cy.get('.alert.alert-danger')
+          .should('be.visible')
+          .should('contain', 'E-mail address is invalid.')
+      })
     })
   })
 
@@ -202,22 +216,6 @@ describe('The catalog services', () => {
       cy.request({ url: '/catalog/rug01:001992976/requests/new', failOnStatusCode: false })
         .its('status')
         .should('eq', 403)
-    })
-
-    it('should not allow invalid e-mail addresses', () => {
-      cy.login()
-
-      cy.visit('/catalog/rug01:002020092/items/VT0354287/requests/new')
-
-      cy.get('#email')
-        .prop('type', 'text')
-        .type('user@ugent .be')
-
-      cy.contains('Request').click()
-
-      cy.get('.alert.alert-danger')
-        .should('be.visible')
-        .should('contain', 'E-mail address is invalid.')
     })
   })
 })
