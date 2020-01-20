@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/Universiteitsbibliotheek/lludss-interface-tests.svg?branch=master)](https://travis-ci.org/Universiteitsbibliotheek/lludss-interface-tests)
+
 # lludss-interface-tests
 
 Integration tests for lludss-interface project
