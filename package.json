@@ -18,7 +18,7 @@
   "homepage": "https://github.ugent.be/Universiteitsbibliotheek/lludss-interface-tests",
   "dependencies": {
     "chai-sorted": "^0.2.0",
-    "cypress": "^3.8.2",
+    "cypress": "^3.8.3",
     "cypress-common": "https://github.com/Universiteitsbibliotheek/cypress-common.git#^3.11.1",
     "fast-xml-parser": "^3.16.0"
   }
