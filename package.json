@@ -2,7 +2,7 @@
   "name": "lludss-interface-tests",
   "version": "1.0.0",
   "description": "Integration tests for lludss-interface project",
-  "license": "MIT",
+  "license": "BSD-3-Clause",
   "scripts": {
     "test": "cypress run",
     "test-local": "cypress open --detached --config baseUrl=http://localhost:3000,chromeWebSecurity=false"
