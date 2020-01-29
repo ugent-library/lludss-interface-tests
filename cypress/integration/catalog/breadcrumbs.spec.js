@@ -35,11 +35,11 @@ describe('The breadcrumbs', () => {
       .should('not.exist')
   })
 
-  it.only('should be able to go back to the search from a detail page', () => {
+  it('should be able to go back to the search from a detail page', () => {
     cy.visit('/catalog?q=einstein')
 
     cy.get('.search-result')
-      .random(20) // The related search block also matches this selector but would fail the test
+      .random(19) // The related search block also matches this selector but would fail the test
       .find('.search-result__title a')
       .click({ force: true })
 
