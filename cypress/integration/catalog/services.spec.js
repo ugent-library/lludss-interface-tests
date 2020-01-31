@@ -73,7 +73,7 @@ describe('The catalog services', () => {
       })
 
       it('should be possible to request an item for loan from DEPX (also via locker)', () => {
-        cy.visit('/catalog/rug01:000896411')
+        cy.visit('/catalog/rug01:002366148')
 
         cy.contains('Request').click()
 
