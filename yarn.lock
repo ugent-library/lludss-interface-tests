@@ -285,8 +285,8 @@ cross-spawn@^6.0.0:
     which "^1.2.9"
 
 "cypress-common@https://github.com/Universiteitsbibliotheek/cypress-common.git#^3.11.1":
-  version "3.12.1"
-  resolved "https://github.com/Universiteitsbibliotheek/cypress-common.git#9cbc8eec1c7f6d9e7f990bbe96ce4fba7563f480"
+  version "3.12.2"
+  resolved "https://github.com/Universiteitsbibliotheek/cypress-common.git#d231b4299728249f4f90418991ea660b9abbe7c2"
 
 cypress@^3.8.3:
   version "3.8.3"
