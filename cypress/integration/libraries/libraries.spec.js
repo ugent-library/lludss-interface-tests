@@ -1,14 +1,14 @@
-describe('The libraries page', function() {
-  ;['en', 'nl'].forEach(function(lang) {
-    describe(`In ${lang} mode`, function() {
-      it(`should contain a list of libraries`, function() {
+describe('The libraries page', () => {
+  ;['en', 'nl'].forEach(lang => {
+    describe(`In ${lang} mode`, () => {
+      it(`should contain a list of libraries`, () => {
         cy.visit(`/${lang}/libraries`)
 
         let widgetsBaseUrl = Cypress.env('widgetsBaseUrl')
-        cy.request(`${widgetsBaseUrl}/library_groups/main.json`).then(function(response) {
+        cy.request(`${widgetsBaseUrl}/library_groups/main.json`).then(response => {
           cy.get('.library-overview__item')
             .should('have.length', response.body.libraries_total)
-            .each(function($item, index) {
+            .each(($item, index) => {
               let library = response.body.libraries[index]
 
               cy.wrap($item)
@@ -22,6 +22,27 @@ describe('The libraries page', function() {
             })
         })
       })
+
+      const selectedLibraries = ['BIB', 'LWBIB', 'RBIB', 'WEBIB', 'G00']
+      selectedLibraries.forEach(lib => {
+        it(`should be able to load the library detail page for ${lib}`, () => {
+          cy.visit(`/${lang}/libraries/${lib}`)
+        })
+      })
     })
+  })
+
+  it('should have capitalized addresses', () => {
+    cy.visit('/libraries')
+
+    cy.get('#content')
+      .should('contain', 'Gent')
+      .should('contain', 'Sint-Hubertusstraat')
+      .should('contain', 'Rozier')
+      .should('contain', 'Universiteitstraat')
+      .should('contain', 'Coupure Links')
+      .should('contain', 'Krijgslaan')
+      .should('contain', 'Korte Meer')
+      .should('contain', 'Jozef Plateaustraat')
   })
 })
