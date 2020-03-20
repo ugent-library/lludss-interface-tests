@@ -57,7 +57,7 @@ describe('The catalog services', () => {
       xit('should be possible to request an item for loan from BIB (also via locker)', () => {
         cy.visit('/catalog/rug01:002772075')
 
-        cy.contains('Request').click()
+        cy.contains('.btn', 'Request').click()
 
         cy.get('#content > h2').should('have.text', 'Available for loan, request from depot first')
         cy.get('.meta-location').should('contain', 'Location: BIB.')
@@ -75,7 +75,7 @@ describe('The catalog services', () => {
       xit('should be possible to request an item for loan from DEPX (also via locker)', () => {
         cy.visit('/catalog/rug01:002366148')
 
-        cy.contains('Request').click()
+        cy.contains('.btn', 'Request').click()
 
         cy.get('#content > h2').should('have.text', 'Available for loan, request from depot first')
         cy.get('.meta-location').should('contain', 'Location: DEP')
@@ -86,7 +86,7 @@ describe('The catalog services', () => {
       xit('should not be possible to request a dummy barcode item via locker', () => {
         cy.visit('/catalog/rug01:000320574')
 
-        cy.contains('Request').click()
+        cy.contains('.btn', 'Request').click()
 
         cy.get('#content > h2').should('have.text', 'Available for loan, request from depot first')
         cy.get('.meta-location').should('contain', 'Location: BIB.')
@@ -97,7 +97,7 @@ describe('The catalog services', () => {
       xit('should be possible to request an item for loan from an external library', () => {
         cy.visit('/catalog/rug01:000457747')
 
-        cy.contains('Request').click()
+        cy.contains('.btn', 'Request').click()
 
         cy.get('#content > h2').should('have.text', 'Available for loan, request from depot first')
         cy.get('.meta-location').should('contain', 'Location: PPW.')
@@ -115,7 +115,7 @@ describe('The catalog services', () => {
             .random()
             .click()
 
-          cy.contains('Request').click()
+          cy.contains('.btn', 'Request').click()
 
           cy.get('#content > h2').should('have.text', 'New request')
         })
@@ -144,7 +144,7 @@ describe('The catalog services', () => {
           .prop('type', 'text')
           .type('user@ugent .be')
 
-        cy.contains('Request').click()
+        cy.contains('.btn', 'Request').click()
 
         cy.get('.alert.alert-danger')
           .should('be.visible')
@@ -172,7 +172,7 @@ describe('The catalog services', () => {
         cy.visit('/catalog/rug01:002243161/items/910000146506/requests/new?scan=true')
 
         // TODO Got to item page and click button
-        // cy.contains('Request').click()
+        // cy.contains('.btn', 'Request').click()
 
         cy.get('#content > h2').should('have.text', 'Request chapter scan')
         cy.get('.meta-location').should('contain', 'Location: BIB.')
