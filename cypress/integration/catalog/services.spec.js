@@ -108,7 +108,7 @@ describe('The catalog services', () => {
 
       const sources = ['rug02', 'rug03', 'rug04']
       sources.forEach(db => {
-        it(`should be possible to request via the card catalogue (${db})`, () => {
+        xit(`should be possible to request via the card catalogue (${db})`, () => {
           cy.visit(`/catalog/source:${db}`)
 
           cy.get('.search-result .search-result__title')
