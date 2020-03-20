@@ -153,6 +153,49 @@ describe('The catalog services', () => {
     })
   })
 
+  describe('Requesting a chapter scan', () => {
+    it('should redirect to the login page for unauthenticated users', () => {
+      // TODO Got to item page and click button
+      cy.visit('/catalog/rug01:002243161/items/910000146506/requests/new?scan=true')
+
+      // cy.contains('.btn', 'Request').click()
+
+      cy.location('href').should('end.with', '/user/signin')
+
+      cy.contains('You need to sign in or sign up before continuing.').should('be.visible')
+    })
+
+    describe('As an authenticated user', () => {
+      beforeEach(cy.login)
+
+      it('should be possible to request a chapter scan', () => {
+        cy.visit('/catalog/rug01:002243161/items/910000146506/requests/new?scan=true')
+
+        // TODO Got to item page and click button
+        // cy.contains('Request').click()
+
+        cy.get('#content > h2').should('have.text', 'Request chapter scan')
+        cy.get('.meta-location').should('contain', 'Location: BIB.')
+      })
+
+      it('should not allow invalid e-mail addresses', () => {
+        cy.visit('/catalog/rug01:002243161/items/910000146506/requests/new?scan=true')
+
+        cy.get('#titleofpart').type('Test chapter')
+
+        cy.get('#email')
+          .prop('type', 'text')
+          .type('user@ugent .be')
+
+        cy.contains('.btn', 'Request').click()
+
+        cy.get('.alert.alert-danger')
+          .should('be.visible')
+          .should('contain', 'E-mail address is invalid.')
+      })
+    })
+  })
+
   describe('Requesting a scanned article', () => {
     xit('should redirect to the login page for unauthenticated users', () => {
       cy.visit('/catalog/ser01:000047796')
