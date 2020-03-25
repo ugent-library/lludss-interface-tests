@@ -138,7 +138,7 @@ describe('The catalog services', () => {
       })
 
       it('should not allow invalid e-mail addresses', () => {
-        cy.visit('/catalog/rug01:002020092/items/VT0354287/requests/new')
+        cy.visit('/catalog/rug01:002020092/items/000000841754/requests/new')
 
         cy.get('#email')
           .prop('type', 'text')
@@ -156,7 +156,7 @@ describe('The catalog services', () => {
   describe('Requesting a chapter scan', () => {
     it('should redirect to the login page for unauthenticated users', () => {
       // TODO Got to item page and click button
-      cy.visit('/catalog/rug01:002243161/items/910000146506/requests/new?scan=true')
+      cy.visit('/catalog/rug01:000232640/items/000010423832/requests/new?scan=true')
 
       // cy.contains('.btn', 'Request').click()
 
@@ -169,17 +169,17 @@ describe('The catalog services', () => {
       beforeEach(cy.login)
 
       it('should be possible to request a chapter scan', () => {
-        cy.visit('/catalog/rug01:002243161/items/910000146506/requests/new?scan=true')
+        cy.visit('/catalog/rug01:000232640/items/000010423832/requests/new?scan=true')
 
         // TODO Got to item page and click button
         // cy.contains('.btn', 'Request').click()
 
         cy.get('#content > h2').should('have.text', 'Request chapter scan')
-        cy.get('.meta-location').should('contain', 'Location: BIB.')
+        cy.get('.meta-location').should('contain', 'Location: LWBIB.')
       })
 
       it('should not allow invalid e-mail addresses', () => {
-        cy.visit('/catalog/rug01:002243161/items/910000146506/requests/new?scan=true')
+        cy.visit('/catalog/rug01:000232640/items/000010423832/requests/new?scan=true')
 
         cy.get('#titleofpart').type('Test chapter')
 
