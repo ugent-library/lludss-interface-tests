@@ -42,8 +42,8 @@ describe('The catalog services', () => {
 
       cy.get('@request')
         .map('href')
-        .should(urls => {
-          urls.forEach(url => {
+        .should((urls) => {
+          urls.forEach((url) => {
             expect(url).to.match(/\/catalog\/rug01:000763774\/items\/\d+\/requests\/new$/)
           })
 
@@ -58,6 +58,8 @@ describe('The catalog services', () => {
         cy.visit('/catalog/rug01:002772075')
 
         cy.contains('.btn', 'Request').click()
+
+        cy.param('scan').should('be.null')
 
         cy.get('#content > h2').should('have.text', 'Available for loan, request from depot first')
         cy.get('.meta-location').should('contain', 'Location: BIB.')
@@ -77,6 +79,8 @@ describe('The catalog services', () => {
 
         cy.contains('.btn', 'Request').click()
 
+        cy.param('scan').should('be.null')
+
         cy.get('#content > h2').should('have.text', 'Available for loan, request from depot first')
         cy.get('.meta-location').should('contain', 'Location: DEP')
 
@@ -87,6 +91,8 @@ describe('The catalog services', () => {
         cy.visit('/catalog/rug01:000320574')
 
         cy.contains('.btn', 'Request').click()
+
+        cy.param('scan').should('be.null')
 
         cy.get('#content > h2').should('have.text', 'Available for loan, request from depot first')
         cy.get('.meta-location').should('contain', 'Location: BIB.')
@@ -99,6 +105,8 @@ describe('The catalog services', () => {
 
         cy.contains('.btn', 'Request').click()
 
+        cy.param('scan').should('be.null')
+
         cy.get('#content > h2').should('have.text', 'Available for loan, request from depot first')
         cy.get('.meta-location').should('contain', 'Location: PPW.')
 
@@ -107,13 +115,11 @@ describe('The catalog services', () => {
       })
 
       const sources = ['rug02', 'rug03', 'rug04']
-      sources.forEach(db => {
+      sources.forEach((db) => {
         xit(`should be possible to request via the card catalogue (${db})`, () => {
           cy.visit(`/catalog/source:${db}`)
 
-          cy.get('.search-result .search-result__title')
-            .random()
-            .click()
+          cy.get('.search-result .search-result__title').random().click()
 
           cy.contains('.btn', 'Request').click()
 
@@ -140,25 +146,20 @@ describe('The catalog services', () => {
       it('should not allow invalid e-mail addresses', () => {
         cy.visit('/catalog/rug01:002020092/items/000000841754/requests/new')
 
-        cy.get('#email')
-          .prop('type', 'text')
-          .type('user@ugent .be')
+        cy.get('#email').prop('type', 'text').type('user@ugent .be')
 
         cy.contains('.btn', 'Request').click()
 
-        cy.get('.alert.alert-danger')
-          .should('be.visible')
-          .should('contain', 'E-mail address is invalid.')
+        cy.get('.alert.alert-danger').should('be.visible').should('contain', 'E-mail address is invalid.')
       })
     })
   })
 
   describe('Requesting a chapter scan', () => {
     it('should redirect to the login page for unauthenticated users', () => {
-      // TODO Got to item page and click button
-      cy.visit('/catalog/rug01:000232640/items/000010423832/requests/new?scan=true')
+      cy.visit('/catalog/rug01:001991595')
 
-      // cy.contains('.btn', 'Request').click()
+      cy.contains('.btn', 'Request scanned chapter').click()
 
       cy.location('href').should('end.with', '/user/signin')
 
@@ -169,29 +170,27 @@ describe('The catalog services', () => {
       beforeEach(cy.login)
 
       it('should be possible to request a chapter scan', () => {
-        cy.visit('/catalog/rug01:000232640/items/000010423832/requests/new?scan=true')
+        cy.visit('/catalog/rug01:001991595')
 
-        // TODO Got to item page and click button
-        // cy.contains('.btn', 'Request').click()
+        cy.contains('.btn', 'Request scanned chapter').click()
+
+        cy.location('pathname').should('end.with', '/catalog/rug01:001991595/items/000000949310/requests/new')
+        cy.param('scan').should('eq', 'true')
 
         cy.get('#content > h2').should('have.text', 'Request chapter scan')
-        cy.get('.meta-location').should('contain', 'Location: LWBIB.')
+        cy.get('.meta-location').should('contain', 'Location: BIB.V.')
       })
 
       it('should not allow invalid e-mail addresses', () => {
-        cy.visit('/catalog/rug01:000232640/items/000010423832/requests/new?scan=true')
+        cy.visit('/catalog/rug01:001991595/items/000000949310/requests/new?scan=true')
 
         cy.get('#titleofpart').type('Test chapter')
 
-        cy.get('#email')
-          .prop('type', 'text')
-          .type('user@ugent .be')
+        cy.get('#email').prop('type', 'text').type('user@ugent .be')
 
         cy.contains('.btn', 'Request').click()
 
-        cy.get('.alert.alert-danger')
-          .should('be.visible')
-          .should('contain', 'E-mail address is invalid.')
+        cy.get('.alert.alert-danger').should('be.visible').should('contain', 'E-mail address is invalid.')
       })
     })
   })
