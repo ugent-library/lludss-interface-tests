@@ -1,9 +1,9 @@
 describe('The catalog services', () => {
   describe('Requesting an item', () => {
-    xit('should redirect to the login page for unauthenticated users', () => {
+    it('should redirect to the login page for unauthenticated users', () => {
       cy.visit('/catalog/rug01:002243161')
 
-      cy.contains('.btn', 'Request').click()
+      cy.contains('.btn', 'Prepare for consultation').click()
 
       cy.location('href').should('end.with', '/user/signin')
 
@@ -12,7 +12,7 @@ describe('The catalog services', () => {
       )
     })
 
-    xit('should be able to request as different items', () => {
+    it('should be able to request as different items', () => {
       cy.server()
       cy.route('/status/900000106992*').as('ajax1')
       cy.route('/status/910000094749*').as('ajax2')
@@ -39,7 +39,7 @@ describe('The catalog services', () => {
       ])
 
       cy.get(
-        '.libservice__status.libservice__status--success:contains("Available in the library, for consultation only")'
+        '.libservice__status.libservice__status--success:contains("Available, item can be consulted")'
       )
         .as('status')
         .its('length')
@@ -47,7 +47,7 @@ describe('The catalog services', () => {
 
       cy.get('@status')
         .closest('div')
-        .find('.btn:contains("Request")')
+        .find('.btn:contains("Prepare for consultation")')
         .as('request')
         .its('length')
         .should('be.greaterThan', 5)
@@ -57,7 +57,7 @@ describe('The catalog services', () => {
         .should(urls => {
           urls.forEach(url => {
             expect(url).to.match(
-              /\/catalog\/rug01:000763774\/items\/\d+\/requests\/new$/
+              /\/catalog\/rug01:000763774\/items\/\d+\/requests\/new\?service=CONSULT$/
             )
           })
 
@@ -68,18 +68,15 @@ describe('The catalog services', () => {
     describe('As an authenticated user', () => {
       beforeEach(cy.login)
 
-      xit('should be possible to request an item for loan from BIB (also via locker)', () => {
+      it('should be possible to request an item for loan from BIB (also via locker)', () => {
         cy.visit('/catalog/rug01:002772075')
 
-        cy.contains('.btn', 'Request').click()
+        cy.contains('.btn', 'Prepare for loan').click()
 
         cy.param('scan').should('be.null')
 
-        cy.get('#content > h2').should(
-          'have.text',
-          'Available for loan, request from depot first'
-        )
-        cy.get('.meta-location').should('contain', 'Location: BIB.')
+        cy.get('#content > h2').should('have.text', 'Prepare for loan')
+        cy.get('.meta-location').should('contain', 'Location in depot: BIB.')
 
         cy.get('input[type=radio][name=reserve_locker]').should(
           'have.length',
@@ -100,18 +97,15 @@ describe('The catalog services', () => {
         cy.get('fieldset.request-locker-options').should('not.be.disabled')
       })
 
-      xit('should be possible to request an item for loan from DEPX (also via locker)', () => {
+      it('should be possible to request an item for loan from DEPX (also via locker)', () => {
         cy.visit('/catalog/rug01:002366148')
 
-        cy.contains('.btn', 'Request').click()
+        cy.contains('.btn', 'Prepare for loan').click()
 
         cy.param('scan').should('be.null')
 
-        cy.get('#content > h2').should(
-          'have.text',
-          'Available for loan, request from depot first'
-        )
-        cy.get('.meta-location').should('contain', 'Location: DEP')
+        cy.get('#content > h2').should('have.text', 'Prepare for loan')
+        cy.get('.meta-location').should('contain', 'Location in depot: DEP')
 
         cy.get('input[type=radio][name=reserve_locker]').should(
           'have.length',
@@ -119,34 +113,28 @@ describe('The catalog services', () => {
         )
       })
 
-      xit('should not be possible to request a dummy barcode item via locker', () => {
+      it('should not be possible to request a dummy barcode item via locker', () => {
         cy.visit('/catalog/rug01:000320574')
 
-        cy.contains('.btn', 'Request').click()
+        cy.contains('.btn', 'Prepare for loan').click()
 
         cy.param('scan').should('be.null')
 
-        cy.get('#content > h2').should(
-          'have.text',
-          'Available for loan, request from depot first'
-        )
-        cy.get('.meta-location').should('contain', 'Location: BIB.')
+        cy.get('#content > h2').should('have.text', 'Prepare for loan')
+        cy.get('.meta-location').should('contain', 'Location in depot: BIB.')
 
         cy.get('input[type=radio][name=reserve_locker]').should('not.exist')
       })
 
-      xit('should be possible to request an item for loan from an external library', () => {
+      it('should be possible to request an item for loan from an external library', () => {
         cy.visit('/catalog/rug01:000457747')
 
-        cy.contains('.btn', 'Request').click()
+        cy.contains('.btn', 'Prepare for loan').click()
 
         cy.param('scan').should('be.null')
 
-        cy.get('#content > h2').should(
-          'have.text',
-          'Available for loan, request from depot first'
-        )
-        cy.get('.meta-location').should('contain', 'Location: PPW.')
+        cy.get('#content > h2').should('have.text', 'Prepare for loan')
+        cy.get('.meta-location').should('contain', 'Location in depot: PPW.')
 
         // Should not be able to loan via locker because PPW
         cy.get('input[type=radio][name=reserve_locker]').should('not.exist')
@@ -154,7 +142,7 @@ describe('The catalog services', () => {
 
       const sources = ['rug02', 'rug03', 'rug04']
       sources.forEach(db => {
-        xit(`should be possible to request via the card catalogue (${db})`, () => {
+        it(`should be possible to request via the card catalogue (${db})`, () => {
           cy.visit(`/catalog/source:${db}`)
 
           cy.get('.search-result .search-result__title').random().click()
@@ -245,7 +233,7 @@ describe('The catalog services', () => {
   })
 
   describe('Requesting a scanned article', () => {
-    xit('should redirect to the login page for unauthenticated users', () => {
+    it('should redirect to the login page for unauthenticated users', () => {
       cy.visit('/catalog/ser01:000047796')
 
       cy.contains('.btn', 'Request scanned article').click()
@@ -257,7 +245,7 @@ describe('The catalog services', () => {
       )
     })
 
-    xit('should redirect to the request form for authenticated users', () => {
+    it('should redirect to the request form for authenticated users', () => {
       cy.login()
 
       cy.visit('/catalog/ser01:000047796')
@@ -286,7 +274,7 @@ describe('The catalog services', () => {
   })
 
   describe('Requesting an article consultation', () => {
-    xit('should redirect to the login page for unauthenticated users', () => {
+    it('should redirect to the login page for unauthenticated users', () => {
       cy.visit('/catalog/ser01:000047796')
 
       cy.contains('.btn', 'Request for consultation').click()
@@ -298,7 +286,7 @@ describe('The catalog services', () => {
       )
     })
 
-    xit('should redirect to the request form for authenticated users', () => {
+    it('should redirect to the request form for authenticated users', () => {
       cy.login()
 
       cy.visit('/catalog/ser01:000047796')
