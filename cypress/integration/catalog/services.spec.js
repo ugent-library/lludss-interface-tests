@@ -7,7 +7,9 @@ describe('The catalog services', () => {
 
       cy.location('href').should('end.with', '/user/signin')
 
-      cy.contains('You need to sign in or sign up before continuing.').should('be.visible')
+      cy.contains('You need to sign in or sign up before continuing.').should(
+        'be.visible'
+      )
     })
 
     xit('should be able to request as different items', () => {
@@ -24,7 +26,17 @@ describe('The catalog services', () => {
 
       cy.visit('/catalog/rug01:000763774')
 
-      cy.wait(['@ajax1', '@ajax2', '@ajax3', '@ajax4', '@ajax5', '@ajax6', '@ajax7', '@ajax8', '@ajax9'])
+      cy.wait([
+        '@ajax1',
+        '@ajax2',
+        '@ajax3',
+        '@ajax4',
+        '@ajax5',
+        '@ajax6',
+        '@ajax7',
+        '@ajax8',
+        '@ajax9',
+      ])
 
       cy.get(
         '.libservice__status.libservice__status--success:contains("Available in the library, for consultation only")'
@@ -42,9 +54,11 @@ describe('The catalog services', () => {
 
       cy.get('@request')
         .map('href')
-        .should((urls) => {
-          urls.forEach((url) => {
-            expect(url).to.match(/\/catalog\/rug01:000763774\/items\/\d+\/requests\/new$/)
+        .should(urls => {
+          urls.forEach(url => {
+            expect(url).to.match(
+              /\/catalog\/rug01:000763774\/items\/\d+\/requests\/new$/
+            )
           })
 
           expect(urls.length).to.eq(Cypress._.uniq(urls).length)
@@ -61,16 +75,28 @@ describe('The catalog services', () => {
 
         cy.param('scan').should('be.null')
 
-        cy.get('#content > h2').should('have.text', 'Available for loan, request from depot first')
+        cy.get('#content > h2').should(
+          'have.text',
+          'Available for loan, request from depot first'
+        )
         cy.get('.meta-location').should('contain', 'Location: BIB.')
 
-        cy.get('input[type=radio][name=reserve_locker]').should('have.length', 2)
-        cy.get('input[type=radio][name=reserve_locker][value=false]').should('be.checked')
-        cy.get('input[type=radio][name=reserve_locker][value=true]').should('not.be.checked')
+        cy.get('input[type=radio][name=reserve_locker]').should(
+          'have.length',
+          2
+        )
+        cy.get('input[type=radio][name=reserve_locker][value=false]').should(
+          'be.checked'
+        )
+        cy.get('input[type=radio][name=reserve_locker][value=true]').should(
+          'not.be.checked'
+        )
         cy.get('fieldset.request-locker-options').should('be.disabled')
 
         cy.get('input[type=radio][name=reserve_locker][value=true]').click()
-        cy.get('input[type=radio][name=reserve_locker][value=false]').should('not.be.checked')
+        cy.get('input[type=radio][name=reserve_locker][value=false]').should(
+          'not.be.checked'
+        )
         cy.get('fieldset.request-locker-options').should('not.be.disabled')
       })
 
@@ -81,10 +107,16 @@ describe('The catalog services', () => {
 
         cy.param('scan').should('be.null')
 
-        cy.get('#content > h2').should('have.text', 'Available for loan, request from depot first')
+        cy.get('#content > h2').should(
+          'have.text',
+          'Available for loan, request from depot first'
+        )
         cy.get('.meta-location').should('contain', 'Location: DEP')
 
-        cy.get('input[type=radio][name=reserve_locker]').should('have.length', 2)
+        cy.get('input[type=radio][name=reserve_locker]').should(
+          'have.length',
+          2
+        )
       })
 
       xit('should not be possible to request a dummy barcode item via locker', () => {
@@ -94,7 +126,10 @@ describe('The catalog services', () => {
 
         cy.param('scan').should('be.null')
 
-        cy.get('#content > h2').should('have.text', 'Available for loan, request from depot first')
+        cy.get('#content > h2').should(
+          'have.text',
+          'Available for loan, request from depot first'
+        )
         cy.get('.meta-location').should('contain', 'Location: BIB.')
 
         cy.get('input[type=radio][name=reserve_locker]').should('not.exist')
@@ -107,7 +142,10 @@ describe('The catalog services', () => {
 
         cy.param('scan').should('be.null')
 
-        cy.get('#content > h2').should('have.text', 'Available for loan, request from depot first')
+        cy.get('#content > h2').should(
+          'have.text',
+          'Available for loan, request from depot first'
+        )
         cy.get('.meta-location').should('contain', 'Location: PPW.')
 
         // Should not be able to loan via locker because PPW
@@ -115,7 +153,7 @@ describe('The catalog services', () => {
       })
 
       const sources = ['rug02', 'rug03', 'rug04']
-      sources.forEach((db) => {
+      sources.forEach(db => {
         xit(`should be possible to request via the card catalogue (${db})`, () => {
           cy.visit(`/catalog/source:${db}`)
 
@@ -150,7 +188,9 @@ describe('The catalog services', () => {
 
         cy.contains('.btn', 'Request').click()
 
-        cy.get('.alert.alert-danger').should('be.visible').should('contain', 'E-mail address is invalid.')
+        cy.get('.alert.alert-danger')
+          .should('be.visible')
+          .should('contain', 'E-mail address is invalid.')
       })
     })
   })
@@ -159,11 +199,13 @@ describe('The catalog services', () => {
     it('should redirect to the login page for unauthenticated users', () => {
       cy.visit('/catalog/rug01:001991595')
 
-      cy.contains('.btn', 'Request scanned chapter').click()
+      cy.contains('.btn', 'Get a chapter scanned').click()
 
       cy.location('href').should('end.with', '/user/signin')
 
-      cy.contains('You need to sign in or sign up before continuing.').should('be.visible')
+      cy.contains('You need to sign in or sign up before continuing.').should(
+        'be.visible'
+      )
     })
 
     describe('As an authenticated user', () => {
@@ -172,17 +214,22 @@ describe('The catalog services', () => {
       it('should be possible to request a chapter scan', () => {
         cy.visit('/catalog/rug01:001991595')
 
-        cy.contains('.btn', 'Request scanned chapter').click()
+        cy.contains('.btn', 'Get a chapter scanned').click()
 
-        cy.location('pathname').should('end.with', '/catalog/rug01:001991595/items/000000949310/requests/new')
+        cy.location('pathname').should(
+          'end.with',
+          '/catalog/rug01:001991595/items/000000949310/requests/new'
+        )
         cy.param('scan').should('eq', 'true')
 
-        cy.get('#content > h2').should('have.text', 'Request chapter scan')
-        cy.get('.meta-location').should('contain', 'Location: BIB.V.')
+        cy.get('#content > h2').should('have.text', 'Get a chapter scanned')
+        cy.get('.meta-location').should('contain', 'Location in depot: BIB.V.')
       })
 
       it('should not allow invalid e-mail addresses', () => {
-        cy.visit('/catalog/rug01:001991595/items/000000949310/requests/new?scan=true')
+        cy.visit(
+          '/catalog/rug01:001991595/items/000000949310/requests/new?scan=true'
+        )
 
         cy.get('#titleofpart').type('Test chapter')
 
@@ -190,7 +237,9 @@ describe('The catalog services', () => {
 
         cy.contains('.btn', 'Request').click()
 
-        cy.get('.alert.alert-danger').should('be.visible').should('contain', 'E-mail address is invalid.')
+        cy.get('.alert.alert-danger')
+          .should('be.visible')
+          .should('contain', 'E-mail address is invalid.')
       })
     })
   })
@@ -203,7 +252,9 @@ describe('The catalog services', () => {
 
       cy.location('href').should('end.with', '/user/signin')
 
-      cy.contains('You need to sign in or sign up before continuing.').should('be.visible')
+      cy.contains('You need to sign in or sign up before continuing.').should(
+        'be.visible'
+      )
     })
 
     xit('should redirect to the request form for authenticated users', () => {
@@ -213,7 +264,10 @@ describe('The catalog services', () => {
 
       cy.contains('.btn', 'Request scanned article').click()
 
-      cy.location('pathname').should('end.with', '/catalog/ser01:000047796/requests/new')
+      cy.location('pathname').should(
+        'end.with',
+        '/catalog/ser01:000047796/requests/new'
+      )
       cy.param('scan').should('eq', 'true')
 
       cy.get('#content > h2').should('have.text', 'New scan request')
@@ -222,7 +276,10 @@ describe('The catalog services', () => {
     it('should fail when trying to request a non-serial', () => {
       cy.login()
 
-      cy.request({ url: '/catalog/rug01:001992976/requests/new?scan=true', failOnStatusCode: false })
+      cy.request({
+        url: '/catalog/rug01:001992976/requests/new?scan=true',
+        failOnStatusCode: false,
+      })
         .its('status')
         .should('eq', 403)
     })
@@ -236,7 +293,9 @@ describe('The catalog services', () => {
 
       cy.location('href').should('end.with', '/user/signin')
 
-      cy.contains('You need to sign in or sign up before continuing.').should('be.visible')
+      cy.contains('You need to sign in or sign up before continuing.').should(
+        'be.visible'
+      )
     })
 
     xit('should redirect to the request form for authenticated users', () => {
@@ -246,7 +305,10 @@ describe('The catalog services', () => {
 
       cy.contains('.btn', 'Request for consultation').click()
 
-      cy.location('pathname').should('end.with', '/catalog/ser01:000047796/requests/new')
+      cy.location('pathname').should(
+        'end.with',
+        '/catalog/ser01:000047796/requests/new'
+      )
       cy.param('scan').should('be.null')
 
       cy.get('#content > h2').should('have.text', 'New consultation request')
@@ -255,7 +317,10 @@ describe('The catalog services', () => {
     it('should fail when trying to request a non-serial', () => {
       cy.login()
 
-      cy.request({ url: '/catalog/rug01:001992976/requests/new', failOnStatusCode: false })
+      cy.request({
+        url: '/catalog/rug01:001992976/requests/new',
+        failOnStatusCode: false,
+      })
         .its('status')
         .should('eq', 403)
     })
