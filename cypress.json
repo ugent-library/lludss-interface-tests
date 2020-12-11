@@ -7,5 +7,6 @@
   "blockHosts": ["*google-analytics.com", "*hotjar.com"],
   "env": {
     "widgetsBaseUrl": "http://widgets.lib.ugent.be"
-  }
+  },
+  "retries": 2
 }
