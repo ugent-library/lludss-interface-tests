@@ -1,4 +1,5 @@
 [![Build Status](https://travis-ci.org/Universiteitsbibliotheek/lludss-interface-tests.svg?branch=master)](https://travis-ci.org/Universiteitsbibliotheek/lludss-interface-tests)
+![CodeQL](https://github.com/Universiteitsbibliotheek/lludss-interface-tests/workflows/CodeQL/badge.svg)
 
 # lludss-interface-tests
 
