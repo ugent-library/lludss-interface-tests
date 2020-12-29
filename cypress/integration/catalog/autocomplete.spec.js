@@ -1,26 +1,20 @@
-describe('The autocomplete function', function() {
-  ;['en', 'nl'].forEach(function(lang) {
-    describe(`in ${lang} language`, function() {
+describe('The autocomplete function', function () {
+  ;['en', 'nl'].forEach(function (lang) {
+    describe(`in ${lang} language`, function () {
       const doTests = () => {
-        it('should produce suggestions upon typing', function() {
+        it('should produce suggestions upon typing', function () {
           cy.server()
           cy.route('/autocomplete/**').as('ac-ajax')
 
-          cy.get('.tt-menu')
-            .as('menu')
-            .should('not.be.visible')
+          cy.get('.tt-menu').as('menu').should('not.be.visible')
 
-          cy.get('#q')
-            .as('ac')
-            .type('e')
+          cy.get('#q').as('ac').type('e')
 
           cy.get('@menu').should('not.be.visible')
 
           cy.get('@ac').type('i')
 
-          cy.wait('@ac-ajax')
-            .param('query')
-            .should('eq', 'ei')
+          cy.wait('@ac-ajax').param('query').should('eq', 'ei')
 
           cy.get('@menu')
             .should('be.visible')
@@ -29,7 +23,7 @@ describe('The autocomplete function', function() {
             .should('have.descendants', '.tt-dataset-subject > .tt-scope')
         })
 
-        it('should be able to search for the typed text', function() {
+        it('should be able to search for the typed text', function () {
           cy.get('#q').type('ein')
 
           cy.get('.tt-menu .tt-dataset-enter .tt-suggestion').click()
@@ -39,7 +33,7 @@ describe('The autocomplete function', function() {
           cy.param('ac').should('be.null')
         })
 
-        it('should be able to click an author suggestion', function() {
+        it('should be able to click an author suggestion', function () {
           cy.get('#q').type('ein')
 
           cy.get('.tt-menu .tt-dataset-author .tt-suggestion:eq(3)').click()
@@ -50,7 +44,7 @@ describe('The autocomplete function', function() {
             .should('end.with', ':author')
         })
 
-        it('should be able to click a subject suggestion', function() {
+        it('should be able to click a subject suggestion', function () {
           cy.get('#q').type('ein')
 
           cy.get('.tt-menu .tt-dataset-subject .tt-suggestion:eq(1)').click()
@@ -62,14 +56,14 @@ describe('The autocomplete function', function() {
         })
       }
 
-      describe('from the home page', function() {
+      describe('from the home page', function () {
         beforeEach(() => cy.visit(`/${lang}/`))
 
         doTests()
       })
 
-      describe('from the catalog page', function() {
-        beforeEach(() => cy.visit(`/${lang}/catalog/`))
+      describe('from the catalog page', function () {
+        beforeEach(() => cy.visit(`/${lang}/catalog?q=`))
 
         doTests()
       })

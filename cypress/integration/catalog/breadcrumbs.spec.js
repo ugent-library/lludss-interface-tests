@@ -1,6 +1,6 @@
 describe('The breadcrumbs', () => {
   it('should display the default catalog breadcrumb without a search query', () => {
-    cy.visit('/catalog')
+    cy.visit('/catalog?q=')
 
     cy.get('.breadcrumb li')
       .as('bc')
@@ -51,10 +51,7 @@ describe('The breadcrumbs', () => {
       .should('exist')
       .should('have.text', 'Home')
 
-    cy.get('@bc')
-      .eq(2)
-      .find('a')
-      .should('not.exist')
+    cy.get('@bc').eq(2).find('a').should('not.exist')
 
     cy.get('@bc')
       .eq(1)
@@ -67,7 +64,9 @@ describe('The breadcrumbs', () => {
   })
 
   it('should display the autocomplete search filter when searching by author', () => {
-    cy.visit('/catalog?q="Einar%20Ingvald%20Haugen"&search_field=author&ac=viaf:108571359:author')
+    cy.visit(
+      '/catalog?q="Einar%20Ingvald%20Haugen"&search_field=author&ac=viaf:108571359:author'
+    )
 
     cy.get('.breadcrumb li')
       .as('bc')
@@ -96,7 +95,9 @@ describe('The breadcrumbs', () => {
   })
 
   it('should display the autocomplete search filter when searching by subject', () => {
-    cy.visit('/catalog?q="Carl%20Einstein"&search_field=author_subject&ac=viaf:34473997:subject')
+    cy.visit(
+      '/catalog?q="Carl%20Einstein"&search_field=author_subject&ac=viaf:34473997:subject'
+    )
 
     cy.get('.breadcrumb li')
       .as('bc')
