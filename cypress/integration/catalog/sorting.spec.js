@@ -1,28 +1,22 @@
-describe('The sort mechanism', function() {
-  ;['new to old', 'old to new', 'by title'].forEach(function(sort) {
-    it(`should be able to sort ${sort}`, function() {
-      cy.visit('/catalog')
+describe('The sort mechanism', function () {
+  ;['new to old', 'old to new', 'by title'].forEach(function (sort) {
+    it(`should be able to sort ${sort}`, function () {
+      cy.visit('/catalog?q=')
 
       cy.contains('#sort-dropdown .dropdown-menu a', sort)
         .as('sort')
         .should('not.be.visible')
 
-      cy.get('#sort-dropdown button a')
-        .as('sorted')
-        .click()
+      cy.get('#sort-dropdown button a').as('sorted').click()
 
-      cy.get('@sort')
-        .should('be.visible')
-        .click()
+      cy.get('@sort').should('be.visible').click()
 
-      let expectToBeSorted = function() {
-        cy.get('@sorted')
-          .prop('innerText')
-          .should('eq', `Sort ${sort}`)
+      let expectToBeSorted = function () {
+        cy.get('@sorted').prop('innerText').should('eq', `Sort ${sort}`)
       }
 
-      let goToRandomPage = function() {
-        cy.getCount().then(function(count) {
+      let goToRandomPage = function () {
+        cy.getCount().then(function (count) {
           if (count > 20) {
             cy.get('ul.pagination > li:not(.disabled):not(.active) a')
               .map('href')
@@ -50,13 +44,13 @@ describe('The sort mechanism', function() {
       cy.contains('.filters .checkbox label', 'book').click()
 
       // Click random a value in each facet and retest
-      ;['Type', 'Access', 'Faculty', 'Language'].forEach(function(facet) {
+      ;['Type', 'Access', 'Faculty', 'Language'].forEach(function (facet) {
         cy.contains('.filters h4', facet)
           .closest('.form-group')
           .find('.checkbox .label')
           .map('innerText')
           .random()
-          .then(function(value) {
+          .then(function (value) {
             cy.log(`Clicking ${facet} facet ${value}`)
 
             cy.contains('.filters .checkbox label', value)
