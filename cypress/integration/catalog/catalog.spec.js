@@ -1,6 +1,8 @@
+import { requiredFacetTypes } from '../../support/constants'
+
 describe('The search catalog', function () {
   beforeEach(function () {
-    cy.visit('/catalog?q=')
+    cy.visit('/catalog')
   })
 
   it('should display the total number of results', function () {
@@ -8,7 +10,8 @@ describe('The search catalog', function () {
       .prop('innerText')
       .should('match', /^1 - 20 of [0-9,]+ Search Results$/)
   })
-  ;['type', 'lang'].forEach(function (lang) {
+
+  Object.keys(requiredFacetTypes).forEach(function (lang) {
     it(`should not have any records without a ${lang} facet`, function () {
       cy.get('#q').type(`{{}!lucene}*:* AND NOT ${lang}:[* TO *]`)
       cy.get('#search').click()

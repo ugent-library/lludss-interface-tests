@@ -1,6 +1,6 @@
 describe('The breadcrumbs', () => {
   it('should display the default catalog breadcrumb without a search query', () => {
-    cy.visit('/catalog?q=')
+    cy.visit('/catalog')
 
     cy.get('.breadcrumb li')
       .as('bc')
