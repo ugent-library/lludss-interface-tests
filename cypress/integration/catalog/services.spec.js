@@ -127,14 +127,24 @@ describe('The catalog services', () => {
       })
 
       it('should be possible to request an item for loan from an external library', () => {
-        cy.visit('/catalog/rug01:000434728')
+        const loanCandidates = [
+          'rug01:000434728', // LWBIB
+          'rug01:000020340', // RBIB
+          'rug01:002040897', // EBIB
+        ]
+
+        cy.wrap(loanCandidates)
+          .random()
+          .then(c => cy.visit(`/catalog/${c}`))
 
         cy.contains('.btn', 'Prepare for loan').click()
 
         cy.param('scan').should('be.null')
 
         cy.get('#content > h2').should('have.text', 'Prepare for loan')
-        cy.get('.meta-location').should('contain', 'Location in depot: LWBIB.')
+        cy.get('.meta-location')
+          .invoke('text')
+          .should('match', /Location in depot: (LW|R|E)BIB\./)
 
         // Should not be able to loan via locker because not BIB or DEP*
         cy.get('input[type=radio][name=reserve_locker]').should('not.exist')
