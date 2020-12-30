@@ -3,7 +3,7 @@ import { exec } from 'child_process'
 describe('The scroll to top feature', function () {
   describe('should only be visible after scrolling', function () {
     const executeTest = () => {
-      cy.visit('/catalog?q=')
+      cy.visit('/catalog')
 
       cy.window().then(function (w) {
         cy.get('.js-backtotop').as('back-to-top').should('not.be.inViewport', w)
@@ -52,7 +52,7 @@ describe('The scroll to top feature', function () {
 
   describe('should scroll back to top when clicking', function () {
     const executeTest = () => {
-      cy.visit('/catalog?q=')
+      cy.visit('/catalog')
 
       cy.window().then(function (w) {
         cy.scrollTo(0, '555', { duration: 100 })

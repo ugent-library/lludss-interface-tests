@@ -4,7 +4,7 @@ describe('The sort mechanism', function () {
   const sortTypes = ['new to old', 'old to new', 'by title']
   sortTypes.forEach(function (sort) {
     it(`should be able to sort ${sort}`, function () {
-      cy.visit('/catalog?q=')
+      cy.visit('/catalog')
 
       cy.contains('#sort-dropdown .dropdown-menu a', sort)
         .as('sort')

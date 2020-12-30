@@ -1,7 +1,7 @@
 import { meceFacetTypes } from '../../../support/constants'
 
 const paths = [
-  '/catalog?q=',
+  '/catalog',
   '/catalog/source:rug01',
   '/catalog/source:pug01',
   '/catalog/source:rug02-rug03-rug04', // The card catalogue
@@ -9,7 +9,7 @@ const paths = [
 
 paths.forEach(function (path) {
   describe(`Catalog tests for path: ${path}`, function () {
-    before(function () {
+    beforeEach(function () {
       cy.visit(path)
     })
 

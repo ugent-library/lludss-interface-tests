@@ -2,7 +2,7 @@ import { requiredFacetTypes } from '../../support/constants'
 
 describe('The search catalog', function () {
   beforeEach(function () {
-    cy.visit('/catalog?q=')
+    cy.visit('/catalog')
   })
 
   it('should display the total number of results', function () {

@@ -65,7 +65,7 @@ describe('The autocomplete function', function () {
       })
 
       describe('from the catalog page', function () {
-        beforeEach(() => cy.visit(`/${lang}/catalog?q=`))
+        beforeEach(() => cy.visit(`/${lang}/catalog/`))
 
         doTests()
       })
