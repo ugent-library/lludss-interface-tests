@@ -1,3 +1,5 @@
+import { meceFacetTypes } from '../../../support/constants'
+
 const paths = [
   '/catalog?q=',
   '/catalog/source:rug01',
@@ -10,7 +12,8 @@ paths.forEach(function (path) {
     before(function () {
       cy.visit(path)
     })
-    ;['Type', 'Language'].forEach(function (facet) {
+
+    Object.values(meceFacetTypes).forEach(function (facet) {
       describe(`The MECE ${facet} facet`, function () {
         it('the sum of facet value counts should match total hits exactly', function () {
           cy.getCount().then(function (totalResults) {

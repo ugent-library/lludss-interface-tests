@@ -1,5 +1,7 @@
+import { languages } from '../../support/constants'
+
 describe('The autocomplete function', function () {
-  ;['en', 'nl'].forEach(function (lang) {
+  languages.forEach(function (lang) {
     describe(`in ${lang} language`, function () {
       const doTests = () => {
         it('should produce suggestions upon typing', function () {

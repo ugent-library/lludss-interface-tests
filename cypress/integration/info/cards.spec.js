@@ -1,5 +1,7 @@
+import { languages } from '../../support/constants'
+
 describe('The digitized card catalogue', function () {
-  ;['en', 'nl'].forEach(function (lang) {
+  languages.forEach(function (lang) {
     describe(`In ${lang} language`, function () {
       it('should load the catalog search form', function () {
         cy.visit(`/${lang}/info/cards`)

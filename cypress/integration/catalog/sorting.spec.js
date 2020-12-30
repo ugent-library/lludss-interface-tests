@@ -1,5 +1,8 @@
+import { facetTypes } from '../../support/constants'
+
 describe('The sort mechanism', function () {
-  ;['new to old', 'old to new', 'by title'].forEach(function (sort) {
+  const sortTypes = ['new to old', 'old to new', 'by title']
+  sortTypes.forEach(function (sort) {
     it(`should be able to sort ${sort}`, function () {
       cy.visit('/catalog?q=')
 
@@ -44,7 +47,7 @@ describe('The sort mechanism', function () {
       cy.contains('.filters .checkbox label', 'book').click()
 
       // Click random a value in each facet and retest
-      ;['Type', 'Access', 'Faculty', 'Language'].forEach(function (facet) {
+      Object.values(facetTypes).forEach(function (facet) {
         cy.contains('.filters h4', facet)
           .closest('.form-group')
           .find('.checkbox .label')
