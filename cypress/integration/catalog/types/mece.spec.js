@@ -9,7 +9,7 @@ const paths = [
 
 paths.forEach(function (path) {
   describe(`Catalog tests for path: ${path}`, function () {
-    beforeEach(function () {
+    before(function () {
       cy.visit(path)
     })
 
