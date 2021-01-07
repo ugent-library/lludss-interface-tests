@@ -1,4 +1,5 @@
 [![Build Status](https://travis-ci.org/Universiteitsbibliotheek/lludss-interface-tests.svg?branch=master)](https://travis-ci.org/Universiteitsbibliotheek/lludss-interface-tests)
+[![lludss-interface-tests](https://img.shields.io/endpoint?url=https://dashboard.cypress.io/badge/simple/npac3t&style=flat&logo=cypress)](https://dashboard.cypress.io/projects/npac3t/runs)
 ![CodeQL](https://github.com/Universiteitsbibliotheek/lludss-interface-tests/workflows/CodeQL/badge.svg)
 
 # lludss-interface-tests
