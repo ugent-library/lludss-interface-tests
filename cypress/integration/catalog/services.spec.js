@@ -11,13 +11,34 @@ describe('The catalog services', () => {
     })
 
     it('should be able to request as different items', () => {
-      cy.intercept('/status/*').as('getStatus')
+      cy.server()
+      cy.route('/status/900000106992*').as('ajax1')
+      cy.route('/status/910000094749*').as('ajax2')
+      cy.route('/status/000011045042*').as('ajax3')
+      cy.route('/status/000011045043*').as('ajax4')
+      cy.route('/status/910000089523*').as('ajax5')
+      cy.route('/status/910000089524*').as('ajax6')
+      cy.route('/status/910000089525*').as('ajax7')
+      cy.route('/status/910000089526*').as('ajax8')
+      cy.route('/status/910000089527*').as('ajax9')
 
       cy.visit('/catalog/rug01:000763774')
 
-      cy.wait('@getStatus')
+      cy.wait([
+        '@ajax1',
+        '@ajax2',
+        '@ajax3',
+        '@ajax4',
+        '@ajax5',
+        '@ajax6',
+        '@ajax7',
+        '@ajax8',
+        '@ajax9',
+      ])
 
-      cy.get('.libservice__status.libservice__status--success:contains("Available, item can be consulted")')
+      cy.get(
+        '.libservice__status.libservice__status--success:contains("Available, item can be consulted")'
+      )
         .as('status')
         .its('length')
         .should('be.greaterThan', 5)
