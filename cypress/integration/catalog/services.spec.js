@@ -24,21 +24,9 @@ describe('The catalog services', () => {
 
       cy.visit('/catalog/rug01:000763774')
 
-      cy.wait([
-        '@ajax1',
-        '@ajax2',
-        '@ajax3',
-        '@ajax4',
-        '@ajax5',
-        '@ajax6',
-        '@ajax7',
-        '@ajax8',
-        '@ajax9',
-      ])
+      cy.wait(['@ajax1', '@ajax2', '@ajax3', '@ajax4', '@ajax5', '@ajax6', '@ajax7', '@ajax8', '@ajax9'])
 
-      cy.get(
-        '.libservice__status.libservice__status--success:contains("Available, item can be consulted")'
-      )
+      cy.get('.libservice__status.libservice__status--success:contains("Available, item can be consulted")')
         .as('status')
         .its('length')
         .should('be.greaterThan', 5)
@@ -64,7 +52,7 @@ describe('The catalog services', () => {
     describe('As an authenticated user', () => {
       beforeEach(cy.login)
 
-      it('should be possible to request an item for loan from BIB (also via locker)', () => {
+      it.skip('should be possible to request an item for loan from BIB (also via locker)', () => {
         cy.visit('/catalog/rug01:002772075')
 
         cy.contains('.btn', 'Prepare for loan').click()
@@ -86,7 +74,7 @@ describe('The catalog services', () => {
         cy.get('fieldset.request-locker-options').should('not.be.hidden')
       })
 
-      it('should be possible to request an item for loan from DEPX (also via locker)', () => {
+      it.skip('should be possible to request an item for loan from DEPX (also via locker)', () => {
         cy.visit('/catalog/rug01:002366148')
 
         cy.contains('.btn', 'Prepare for loan').click()
