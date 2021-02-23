@@ -1,6 +1,6 @@
-[![Build Status](https://travis-ci.org/Universiteitsbibliotheek/lludss-interface-tests.svg?branch=master)](https://travis-ci.org/Universiteitsbibliotheek/lludss-interface-tests)
+[![Build Status](https://travis-ci.org/ugent-library/lludss-interface-tests.svg?branch=master)](https://travis-ci.org/ugent-library/lludss-interface-tests)
 [![lludss-interface-tests](https://img.shields.io/endpoint?url=https://dashboard.cypress.io/badge/simple/npac3t&style=flat&logo=cypress)](https://dashboard.cypress.io/projects/npac3t/runs)
-![CodeQL](https://github.com/Universiteitsbibliotheek/lludss-interface-tests/workflows/CodeQL/badge.svg)
+![CodeQL](https://github.com/ugent-library/lludss-interface-tests/workflows/CodeQL/badge.svg)
 
 # lludss-interface-tests
 
@@ -10,9 +10,9 @@ Integration tests for lludss-interface project
 
 In order to run the tests locally:
 
-* Clone this repository
-* `cd lludss-interface-tests`
-* Execute [`yarn`](https://yarnpkg.com/)
+- Clone this repository
+- `cd lludss-interface-tests`
+- Execute [`yarn`](https://yarnpkg.com/)
 
 ## Usage
 

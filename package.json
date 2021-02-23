@@ -4,13 +4,13 @@
   "description": "Integration tests for lludss-interface project",
   "author": "",
   "license": "BSD-3-Clause",
-  "homepage": "https://github.ugent.be/Universiteitsbibliotheek/lludss-interface-tests",
+  "homepage": "https://github.ugent.be/ugent-library/lludss-interface-tests",
   "repository": {
     "type": "git",
-    "url": "git+https://github.ugent.be/Universiteitsbibliotheek/lludss-interface-tests.git"
+    "url": "git+https://github.ugent.be/ugent-library/lludss-interface-tests.git"
   },
   "bugs": {
-    "url": "https://github.ugent.be/Universiteitsbibliotheek/lludss-interface-tests/issues"
+    "url": "https://github.ugent.be/ugent-library/lludss-interface-tests/issues"
   },
   "scripts": {
     "test": "cypress run",
@@ -24,10 +24,10 @@
   "dependencies": {
     "chai-sorted": "^0.2.0",
     "cypress": "^6.5.0",
-    "cypress-common": "https://github.com/Universiteitsbibliotheek/cypress-common.git#^3.11.1",
+    "cypress-common": "https://github.com/ugent-library/cypress-common.git#^3.11.1",
     "fast-xml-parser": "^3.16.0"
   },
   "devDependencies": {
-    "js-precommit-hook": "https://github.com/Universiteitsbibliotheek/js-precommit-hook#^1.2.0"
+    "js-precommit-hook": "https://github.com/ugent-library/js-precommit-hook#^1.2.0"
   }
 }
