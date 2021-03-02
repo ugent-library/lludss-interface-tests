@@ -52,7 +52,7 @@ describe('The catalog services', () => {
     describe('As an authenticated user', () => {
       beforeEach(cy.login)
 
-      it.skip('should be possible to request an item for loan from BIB (also via locker)', () => {
+      it('should be possible to request an item for loan from BIB (also via locker)', () => {
         cy.visit('/catalog/rug01:002772075')
 
         cy.contains('.btn', 'Prepare for loan').click()
@@ -74,7 +74,7 @@ describe('The catalog services', () => {
         cy.get('fieldset.request-locker-options').should('not.be.hidden')
       })
 
-      it.skip('should be possible to request an item for loan from DEPX (also via locker)', () => {
+      it('should be possible to request an item for loan from DEPX (also via locker)', () => {
         cy.visit('/catalog/rug01:002366148')
 
         cy.contains('.btn', 'Prepare for loan').click()
