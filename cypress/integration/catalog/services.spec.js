@@ -11,16 +11,15 @@ describe('The catalog services', () => {
     })
 
     it('should be able to request as different items', () => {
-      cy.server()
-      cy.route('/status/900000106992*').as('ajax1')
-      cy.route('/status/910000094749*').as('ajax2')
-      cy.route('/status/000011045042*').as('ajax3')
-      cy.route('/status/000011045043*').as('ajax4')
-      cy.route('/status/910000089523*').as('ajax5')
-      cy.route('/status/910000089524*').as('ajax6')
-      cy.route('/status/910000089525*').as('ajax7')
-      cy.route('/status/910000089526*').as('ajax8')
-      cy.route('/status/910000089527*').as('ajax9')
+      cy.intercept('GET', '/status/900000106992*').as('ajax1')
+      cy.intercept('GET', '/status/910000094749*').as('ajax2')
+      cy.intercept('GET', '/status/000011045042*').as('ajax3')
+      cy.intercept('GET', '/status/000011045043*').as('ajax4')
+      cy.intercept('GET', '/status/910000089523*').as('ajax5')
+      cy.intercept('GET', '/status/910000089524*').as('ajax6')
+      cy.intercept('GET', '/status/910000089525*').as('ajax7')
+      cy.intercept('GET', '/status/910000089526*').as('ajax8')
+      cy.intercept('GET', '/status/910000089527*').as('ajax9')
 
       cy.visit('/catalog/rug01:000763774')
 

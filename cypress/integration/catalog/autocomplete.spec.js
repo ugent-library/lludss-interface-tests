@@ -5,8 +5,7 @@ describe('The autocomplete function', function () {
     describe(`in ${lang} language`, function () {
       const doTests = () => {
         it('should produce suggestions upon typing', function () {
-          cy.server()
-          cy.route('/autocomplete/**').as('ac-ajax')
+          cy.intercept('GET', '/autocomplete/**').as('ac-ajax')
 
           cy.get('.tt-menu').as('menu').should('not.be.visible')
 
@@ -16,7 +15,7 @@ describe('The autocomplete function', function () {
 
           cy.get('@ac').type('i')
 
-          cy.wait('@ac-ajax').param('query').should('eq', 'ei')
+          cy.wait('@ac-ajax').its('request.url').param('query').should('eq', 'ei')
 
           cy.get('@menu')
             .should('be.visible')
@@ -41,9 +40,7 @@ describe('The autocomplete function', function () {
           cy.get('.tt-menu .tt-dataset-author .tt-suggestion:eq(3)').click()
 
           cy.param('search_field').should('eq', 'author')
-          cy.param('ac')
-            .should('start.with', 'viaf:')
-            .should('end.with', ':author')
+          cy.param('ac').should('start.with', 'viaf:').should('end.with', ':author')
         })
 
         it('should be able to click a subject suggestion', function () {
@@ -52,9 +49,7 @@ describe('The autocomplete function', function () {
           cy.get('.tt-menu .tt-dataset-subject .tt-suggestion:eq(1)').click()
 
           cy.param('search_field').should('eq', 'author_subject')
-          cy.param('ac')
-            .should('start.with', 'viaf:')
-            .should('end.with', ':subject')
+          cy.param('ac').should('start.with', 'viaf:').should('end.with', ':subject')
         })
       }
 
