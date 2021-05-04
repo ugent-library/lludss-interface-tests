@@ -5,6 +5,8 @@ const paths = [
   '/catalog/source:rug01',
   '/catalog/source:pug01',
   '/catalog/source:rug02-rug03-rug04', // The card catalogue
+  '/catalog/source:ejn01',
+  '/catalog/source:ebk01',
 ]
 
 paths.forEach(function (path) {
