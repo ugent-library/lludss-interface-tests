@@ -25,7 +25,12 @@ paths.forEach(function (path) {
                 return parseInt(facetCount.innerText.replace(/,/g, ''))
               })
               .sum()
-              .should('eq', totalResults)
+              .should(subject => {
+                expect(subject).to.eq(
+                  totalResults,
+                  `Detected ${(totalResults - subject).toFixed(0)} items without ${facet.toLowerCase()}`
+                )
+              })
           })
         })
       })
