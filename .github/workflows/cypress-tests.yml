@@ -18,4 +18,6 @@ jobs:
           config: video=true
         env:
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
+          CYPRESS_login_username: ${{ secrets.CYPRESS_login_username }}
+          CYPRESS_login_password: ${{ secrets.CYPRESS_login_password }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
