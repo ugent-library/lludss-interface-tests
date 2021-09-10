@@ -41,7 +41,7 @@ describe('The libraries page', () => {
       .should('contain', 'Universiteitstraat')
       .should('contain', 'Coupure Links')
       .should('contain', 'Krijgslaan')
-      .should('contain', 'Korte Meer')
+      .should('contain', 'Technicum')
       .should('contain', 'Jozef Plateaustraat')
   })
 })
