@@ -352,9 +352,9 @@ cross-spawn@^7.0.0:
     shebang-command "^2.0.0"
     which "^2.0.1"
 
-"cypress-common@https://github.com/ugent-library/cypress-common.git#^3.11.1":
-  version "3.12.2"
-  resolved "https://github.com/ugent-library/cypress-common.git#d231b4299728249f4f90418991ea660b9abbe7c2"
+"cypress-common@https://github.com/ugent-library/cypress-common.git#^3.13.0":
+  version "3.13.0"
+  resolved "https://github.com/ugent-library/cypress-common.git#6d5e2963f0c80c551b8c423a104fe2eb55769c75"
 
 cypress@^9.5.2:
   version "9.5.2"
@@ -532,10 +532,12 @@ extsprintf@^1.2.0:
   resolved "https://registry.yarnpkg.com/extsprintf/-/extsprintf-1.4.0.tgz#e2689f8f356fad62cca65a3a91c5df5f9551692f"
   integrity sha1-4mifjzVvrWLMplo6kcXfX5VRaS8=
 
-fast-xml-parser@^3.16.0:
-  version "3.16.0"
-  resolved "https://registry.yarnpkg.com/fast-xml-parser/-/fast-xml-parser-3.16.0.tgz#d905e7e6b28fc4648cabebcb074363867fb56ee2"
-  integrity sha512-U+bpScacfgnfNfIKlWHDu4u6rtOaCyxhblOLJ8sZPkhsjgGqdZmVPBhdOyvdMGCDt8CsAv+cssOP3NzQptNt2w==
+fast-xml-parser@^4.0.7:
+  version "4.0.7"
+  resolved "https://registry.yarnpkg.com/fast-xml-parser/-/fast-xml-parser-4.0.7.tgz#570a0f3754f259a8e5e7a85e7c667401e15e4872"
+  integrity sha512-dMtibyus3kC7nbxj1CpVtysLzO13UOAZEFAb5vpQg3T4O6qvetmSePpXKFx5KPNCHKoGwjtgjfF5DOyn7s1ylQ==
+  dependencies:
+    strnum "^1.0.5"
 
 fd-slicer@~1.1.0:
   version "1.1.0"
@@ -1161,6 +1163,11 @@ strip-final-newline@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/strip-final-newline/-/strip-final-newline-2.0.0.tgz#89b852fb2fcbe936f6f4b3187afb0a12c1ab58ad"
   integrity sha512-BrpvfNAE3dcvq7ll3xVumzjKjZQ5tI1sEUIKr3Uoks0XUl45St3FlatVqef9prk4jRDzhW6WZg+3bk93y6pLjA==
+
+strnum@^1.0.5:
+  version "1.0.5"
+  resolved "https://registry.yarnpkg.com/strnum/-/strnum-1.0.5.tgz#5c4e829fe15ad4ff0d20c3db5ac97b73c9b072db"
+  integrity sha512-J8bbNyKKXl5qYcR36TIO8W3mVGVHrmmxsd5PAItGkmyzwJvybiw2IVq5nqd0i4LSNSkB/sx9VHllbfFdr9k1JA==
 
 supports-color@^7.1.0:
   version "7.1.0"

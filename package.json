@@ -24,8 +24,8 @@
   "dependencies": {
     "chai-sorted": "^0.2.0",
     "cypress": "^9.5.2",
-    "cypress-common": "https://github.com/ugent-library/cypress-common.git#^3.11.1",
-    "fast-xml-parser": "^3.16.0"
+    "cypress-common": "https://github.com/ugent-library/cypress-common.git#^3.13.0",
+    "fast-xml-parser": "^4.0.7"
   },
   "devDependencies": {
     "js-precommit-hook": "https://github.com/ugent-library/js-precommit-hook#^1.2.0"
