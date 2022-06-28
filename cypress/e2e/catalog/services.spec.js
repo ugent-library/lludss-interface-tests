@@ -146,7 +146,7 @@ describe('The catalog services', () => {
       })
 
       it('should be possible to request a license', () => {
-        cy.visit('/catalog/rug01:000763774')
+        cy.visit('/catalog/rug01:002150180')
 
         cy.contains('Order additional license').click()
 
