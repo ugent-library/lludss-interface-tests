@@ -51,7 +51,7 @@ describe('The catalog services', () => {
     describe('As an authenticated user', () => {
       beforeEach(cy.login)
 
-      it('should be possible to request an item for loan from BIB (also via locker)', () => {
+      it.skip('should be possible to request an item for loan from BIB (also via locker)', () => {
         cy.visit('/catalog/rug01:002772075')
 
         cy.contains('.btn', 'Prepare for loan').click()
