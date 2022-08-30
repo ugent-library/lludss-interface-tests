@@ -11,15 +11,28 @@ describe('The catalog services', () => {
     })
 
     it('should be able to request as different items', () => {
-      cy.intercept('GET', '/status/900000106992*').as('ajax1')
-      cy.intercept('GET', '/status/910000094749*').as('ajax2')
-      cy.intercept('GET', '/status/000011045042*').as('ajax3')
-      cy.intercept('GET', '/status/000011045043*').as('ajax4')
-      cy.intercept('GET', '/status/910000089523*').as('ajax5')
-      cy.intercept('GET', '/status/910000089524*').as('ajax6')
-      cy.intercept('GET', '/status/910000089525*').as('ajax7')
-      cy.intercept('GET', '/status/910000089526*').as('ajax8')
-      cy.intercept('GET', '/status/910000089527*').as('ajax9')
+      const routeHandler = req => {
+        req.reply(
+          // Response body should be something like jQuery12345...({ ... })
+          `${req.query.callback}(${JSON.stringify({
+            button: {
+              color: 'GREEN',
+              show: 1,
+              service: 'CONSULT',
+              msg_i18n: 'consultation_only',
+            },
+          })})`
+        )
+      }
+      cy.intercept('GET', '/status/900000106992*', routeHandler).as('ajax1')
+      cy.intercept('GET', '/status/910000094749*', routeHandler).as('ajax2')
+      cy.intercept('GET', '/status/000011045042*', routeHandler).as('ajax3')
+      cy.intercept('GET', '/status/000011045043*', routeHandler).as('ajax4')
+      cy.intercept('GET', '/status/910000089523*', routeHandler).as('ajax5')
+      cy.intercept('GET', '/status/910000089524*', routeHandler).as('ajax6')
+      cy.intercept('GET', '/status/910000089525*', routeHandler).as('ajax7')
+      cy.intercept('GET', '/status/910000089526*', routeHandler).as('ajax8')
+      cy.intercept('GET', '/status/910000089527*', routeHandler).as('ajax9')
 
       cy.visit('/catalog/rug01:000763774')
 
@@ -27,15 +40,13 @@ describe('The catalog services', () => {
 
       cy.get('.libservice__status.libservice__status--success:contains("Available, item can be consulted")')
         .as('status')
-        .its('length')
-        .should('be.greaterThan', 5)
+        .should('have.length', 9)
 
       cy.get('@status')
         .closest('div')
         .find('.btn:contains("Prepare for consultation")')
         .as('request')
-        .its('length')
-        .should('be.greaterThan', 5)
+        .should('have.length', 9)
 
       cy.get('@request')
         .map('href')
