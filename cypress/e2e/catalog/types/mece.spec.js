@@ -9,21 +9,19 @@ const paths = [
   '/catalog/source:ebk01',
 ]
 
-paths.forEach(function (path) {
-  describe(`Catalog tests for path: ${path}`, function () {
-    before(function () {
+paths.forEach(path => {
+  describe(`Catalog tests for path: ${path}`, () => {
+    before(() => {
       cy.visit(path)
     })
 
-    Object.values(meceFacetTypes).forEach(function (facet) {
-      describe(`The MECE ${facet} facet`, function () {
-        it('the sum of facet value counts should match total hits exactly', function () {
-          cy.getCount().then(function (totalResults) {
+    Object.values(meceFacetTypes).forEach(facet => {
+      describe(`The MECE ${facet} facet`, () => {
+        it('the sum of facet value counts should match total hits exactly', () => {
+          cy.getCount().then(totalResults => {
             cy.contains('.filters .form-group', facet)
               .find('.checkbox label .mute .facet-count')
-              .map(function (facetCount) {
-                return parseInt(facetCount.innerText.replace(/,/g, ''))
-              })
+              .map(facetCount => parseInt(facetCount.innerText.replace(/,/g, '')))
               .sum()
               .should(subject => {
                 expect(subject).to.eq(

@@ -1,10 +1,10 @@
 import { languages } from '../../support/constants'
 
-describe('The autocomplete function', function () {
-  languages.forEach(function (lang) {
-    describe(`in ${lang} language`, function () {
+describe('The autocomplete feature', () => {
+  languages.forEach(lang => {
+    describe(`in ${lang} language`, () => {
       const doTests = () => {
-        it('should produce suggestions upon typing', function () {
+        it('should produce suggestions upon typing', () => {
           cy.intercept('GET', '/autocomplete/**').as('ac-ajax')
 
           cy.get('.tt-menu').as('menu').should('not.be.visible')
@@ -24,7 +24,7 @@ describe('The autocomplete function', function () {
             .should('have.descendants', '.tt-dataset-subject > .tt-scope')
         })
 
-        it('should be able to search for the typed text', function () {
+        it('should be able to search for the typed text', () => {
           cy.get('#q').type('ein')
 
           cy.get('.tt-menu .tt-dataset-enter .tt-suggestion').click()
@@ -34,7 +34,7 @@ describe('The autocomplete function', function () {
           cy.param('ac').should('be.null')
         })
 
-        it('should be able to click an author suggestion', function () {
+        it('should be able to click an author suggestion', () => {
           cy.get('#q').type('ein')
 
           cy.get('.tt-menu .tt-dataset-author .tt-suggestion:eq(3)').click()
@@ -43,7 +43,7 @@ describe('The autocomplete function', function () {
           cy.param('ac').should('start.with', 'viaf:').should('end.with', ':author')
         })
 
-        it('should be able to click a subject suggestion', function () {
+        it('should be able to click a subject suggestion', () => {
           cy.get('#q').type('ein')
 
           cy.get('.tt-menu .tt-dataset-subject .tt-suggestion:eq(1)').click()
@@ -53,13 +53,13 @@ describe('The autocomplete function', function () {
         })
       }
 
-      describe('from the home page', function () {
+      describe('from the home page', () => {
         beforeEach(() => cy.visit(`/${lang}/`))
 
         doTests()
       })
 
-      describe('from the catalog page', function () {
+      describe('from the catalog page', () => {
         beforeEach(() => cy.visit(`/${lang}/catalog/`))
 
         doTests()

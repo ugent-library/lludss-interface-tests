@@ -1,9 +1,9 @@
-describe('The databases page', function () {
-  beforeEach(function () {
+describe('The databases page', () => {
+  beforeEach(() => {
     cy.visit('/databases')
   })
 
-  it('should contain a link to WOS', function () {
+  it('should contain a link to WOS', () => {
     cy.get('.link-external')
       .contains('Web of Science')
       .should('exist')
@@ -12,7 +12,7 @@ describe('The databases page', function () {
       .should('contain', 'webofknowledge.com/WOS')
   })
 
-  it('should link to google scholar', function () {
+  it('should link to google scholar', () => {
     cy.get('.link-external')
       .contains('Google Scholar')
       .should('be.visible')

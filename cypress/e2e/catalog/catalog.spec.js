@@ -1,18 +1,18 @@
 import { requiredFacetTypes } from '../../support/constants'
 
-describe('The search catalog', function () {
-  beforeEach(function () {
+describe('The search catalog', () => {
+  beforeEach(() => {
     cy.visit('/catalog')
   })
 
-  it('should display the total number of results', function () {
+  it('should display the total number of results', () => {
     cy.get('.search-result-count')
       .prop('innerText')
       .should('match', /^1 - 20 of [0-9,]+ Search Results$/)
   })
 
-  Object.keys(requiredFacetTypes).forEach(function (lang) {
-    it(`should not have any records without a ${lang} facet`, function () {
+  Object.keys(requiredFacetTypes).forEach(lang => {
+    it(`should not have any records without a ${lang} facet`, () => {
       cy.get('#q').type(`{{}!lucene}*:* AND NOT ${lang}:[* TO *]`)
       cy.get('#search').click()
 
@@ -22,7 +22,7 @@ describe('The search catalog', function () {
     })
   })
 
-  it('should be able to interchange type facets', function () {
+  it('should be able to interchange type facets', () => {
     let counter = 0
 
     let add = amount => {
@@ -34,11 +34,7 @@ describe('The search catalog', function () {
     }
 
     let clickFacet = (name, method, activeFacets) => {
-      cy.contains('.checkbox', name)
-        .as(name)
-        .find('.facet-count')
-        .getCount()
-        .then(method)
+      cy.contains('.checkbox', name).as(name).find('.facet-count').getCount().then(method)
 
       cy.get('@' + name)
         .find('label')
@@ -64,8 +60,8 @@ describe('The search catalog', function () {
     clickFacet('article', subtract, ['chapter', 'newspaper'])
   })
 
-  describe('The language facet', function () {
-    it('should have facet values ordered by name ascending', function () {
+  describe('The language facet', () => {
+    it('should have facet values ordered by name ascending', () => {
       cy.contains('.filters .form-group', 'Language')
         .find('.checkbox label .label')
         .map('innerText')

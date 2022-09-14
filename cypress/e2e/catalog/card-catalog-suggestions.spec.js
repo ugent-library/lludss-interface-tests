@@ -1,5 +1,5 @@
-describe('The catalog card search suggestions', function () {
-  it('should show 3 matching suggestions in a general search', function () {
+describe('The catalog card search suggestions', () => {
+  it('should show 3 matching suggestions in a general search', () => {
     cy.visit('/catalog?q=einstein')
 
     cy.get('.catalog-card-suggestions .row:eq(0)')
@@ -12,10 +12,7 @@ describe('The catalog card search suggestions', function () {
           .should('have.attr', 'href')
           .should('match', /\/catalog\/rug0[23]:\d{9}\?q=einstein$/)
 
-        cy.wrap(a)
-          .prop('title')
-          .invoke('toLowerCase')
-          .should('contain', 'einstein')
+        cy.wrap(a).prop('title').invoke('toLowerCase').should('contain', 'einstein')
       })
 
     cy.get('@cards')
@@ -27,39 +24,36 @@ describe('The catalog card search suggestions', function () {
       .should('match', /\/catalog\/source:rug02-rug03\?q=einstein$/)
   })
 
-  it('should only show related search suggestions on the first results page', function () {
+  it('should only show related search suggestions on the first results page', () => {
     cy.visit('/catalog?q=einstein')
 
     cy.contains('Found in the card catalogue').should('be.visible')
 
-    cy.get('.pagination .active')
-      .next()
-      .find('a')
-      .click()
+    cy.get('.pagination .active').next().find('a').click()
 
     cy.param('page').should('eq', '2')
     cy.contains('Found in the card catalogue').should('not.exist')
   })
 
-  it('should not show related search suggestions from the card catalogue page', function () {
+  it('should not show related search suggestions from the card catalogue page', () => {
     cy.visit('/catalog/source:rug02-rug03-rug04?q=einstein')
 
     cy.contains('Found in the card catalogue').should('not.exist')
   })
 
-  it('should not show related search suggestions whitout a search query', function () {
+  it('should not show related search suggestions whitout a search query', () => {
     cy.visit('/catalog?q=')
 
     cy.contains('Found in the card catalogue').should('not.exist')
   })
 
-  it('should not show related search suggestions with a record id as search query', function () {
+  it('should not show related search suggestions with a record id as search query', () => {
     cy.visit('/catalog?q=rug01:002243161')
 
     cy.contains('Found in the card catalogue').should('not.exist')
   })
 
-  it('should not show related search suggestions whitout any search results', function () {
+  it('should not show related search suggestions whitout any search results', () => {
     cy.visit('/catalog?q=sdofijsdmlfkqjsdflj')
 
     cy.contains('Found in the card catalogue').should('not.exist')

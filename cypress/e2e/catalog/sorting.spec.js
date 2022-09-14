@@ -1,25 +1,23 @@
 import { facetTypes } from '../../support/constants'
 
-describe('The sort mechanism', function () {
+describe('The sort mechanism', () => {
   const sortTypes = ['new to old', 'old to new', 'by title']
-  sortTypes.forEach(function (sort) {
-    it(`should be able to sort ${sort}`, function () {
+  sortTypes.forEach(sort => {
+    it(`should be able to sort ${sort}`, () => {
       cy.visit('/catalog')
 
-      cy.contains('#sort-dropdown .dropdown-menu a', sort)
-        .as('sort')
-        .should('not.be.visible')
+      cy.contains('#sort-dropdown .dropdown-menu a', sort).as('sort').should('not.be.visible')
 
       cy.get('#sort-dropdown button a').as('sorted').click()
 
       cy.get('@sort').should('be.visible').click()
 
-      let expectToBeSorted = function () {
+      let expectToBeSorted = () => {
         cy.get('@sorted').prop('innerText').should('eq', `Sort ${sort}`)
       }
 
-      let goToRandomPage = function () {
-        cy.getCount().then(function (count) {
+      let goToRandomPage = () => {
+        cy.getCount().then(count => {
           if (count > 20) {
             cy.get('ul.pagination > li:not(.disabled):not(.active) a')
               .map('href')
@@ -47,18 +45,16 @@ describe('The sort mechanism', function () {
       cy.contains('.filters .checkbox label', 'book').click()
 
       // Click random a value in each facet and retest
-      Object.values(facetTypes).forEach(function (facet) {
+      Object.values(facetTypes).forEach(facet => {
         cy.contains('.filters h4', facet)
           .closest('.form-group')
           .find('.checkbox .label')
           .map('innerText')
           .random()
-          .then(function (value) {
+          .then(value => {
             cy.log(`Clicking ${facet} facet ${value}`)
 
-            cy.contains('.filters .checkbox label', value)
-              .closest('.checkbox')
-              .click()
+            cy.contains('.filters .checkbox label', value).closest('.checkbox').click()
 
             expectToBeSorted()
 

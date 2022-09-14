@@ -1,11 +1,9 @@
-import { exec } from 'child_process'
-
-describe('The scroll to top feature', function () {
-  describe('should only be visible after scrolling', function () {
+describe('The scroll to top feature', () => {
+  describe('should only be visible after scrolling', () => {
     const executeTest = () => {
       cy.visit('/catalog')
 
-      cy.window().then(function (w) {
+      cy.window().then(w => {
         cy.get('.js-backtotop').as('back-to-top').should('not.be.inViewport', w)
 
         cy.scrollTo(0, 200, { duration: 100 })
@@ -39,22 +37,22 @@ describe('The scroll to top feature', function () {
       })
     }
 
-    it('on desktop', function () {
+    it('on desktop', () => {
       executeTest()
     })
 
-    it('on mobile', function () {
+    it('on mobile', () => {
       cy.viewport('iphone-6')
 
       executeTest()
     })
   })
 
-  describe('should scroll back to top when clicking', function () {
+  describe('should scroll back to top when clicking', () => {
     const executeTest = () => {
       cy.visit('/catalog')
 
-      cy.window().then(function (w) {
+      cy.window().then(w => {
         cy.scrollTo(0, '555', { duration: 100 })
 
         cy.wrap(Cypress.$(w)).invoke('scrollTop').should('eq', 555)
@@ -67,11 +65,11 @@ describe('The scroll to top feature', function () {
       })
     }
 
-    it('on desktop', function () {
+    it('on desktop', () => {
       executeTest()
     })
 
-    it('on mobile', function () {
+    it('on mobile', () => {
       cy.viewport('iphone-6')
 
       executeTest()
