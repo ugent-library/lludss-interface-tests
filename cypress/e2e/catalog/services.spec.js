@@ -115,7 +115,7 @@ describe('The catalog services', () => {
         const loanCandidates = [
           'rug01:000434728', // LWBIB
           'rug01:000000509', // PPW
-          'rug01:002040897', // EBIB
+          'rug01:000002461', // TW01
         ]
 
         cy.wrap(loanCandidates)
@@ -129,9 +129,9 @@ describe('The catalog services', () => {
         cy.get('#content > h2').should('have.text', 'Prepare for loan')
         cy.get('.meta-location')
           .invoke('text')
-          .should('match', /Location in depot: (LWBIB|PPW|EBIB)\./)
+          .should('match', /Location in depot: (LWBIB|PPW|TW01)\./)
 
-        // Should not be able to loan via locker because not BIB or DEP*
+        // Should not be able to loan via locker because not BIB, RBIB or DEP*
         cy.get('input[type=radio][name=pickup_location][data-locker=true]').should('not.exist')
       })
 
