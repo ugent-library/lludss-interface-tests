@@ -11,13 +11,11 @@ const paths = [
 
 paths.forEach(path => {
   describe(`Catalog tests for path: ${path}`, () => {
-    before(() => {
-      cy.visit(path)
-    })
-
     Object.values(meceFacetTypes).forEach(facet => {
       describe(`The MECE ${facet} facet`, () => {
         it('the sum of facet value counts should match total hits exactly', () => {
+          cy.visit(path)
+
           cy.getCount().then(totalResults => {
             cy.contains('.filters .form-group', facet)
               .find('.checkbox label .mute .facet-count')

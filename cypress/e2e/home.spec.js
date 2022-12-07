@@ -16,7 +16,7 @@ describe('The home page', () => {
   })
 
   describe('The search form', () => {
-    before(() => cy.visit('/'))
+    beforeEach(() => cy.visit('/'))
 
     it('should be displayed', () => {
       cy.get('form')

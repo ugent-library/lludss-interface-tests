@@ -4,19 +4,19 @@ describe('The databases page', () => {
   })
 
   it('should contain a link to WOS', () => {
-    cy.get('.link-external')
-      .contains('Web of Science')
+    cy.contains('.link-external', 'Web of Science')
       .should('exist')
       .should('be.visible')
-      .prop('href')
+      .children('a')
+      .should('have.attr', 'href')
       .should('contain', 'webofknowledge.com/WOS')
   })
 
   it('should link to google scholar', () => {
-    cy.get('.link-external')
-      .contains('Google Scholar')
+    cy.contains('.link-external', 'Google Scholar')
       .should('be.visible')
-      .prop('href')
+      .children('a')
+      .should('have.attr', 'href')
       .should('contain', 'scholar.google.com')
   })
 })
