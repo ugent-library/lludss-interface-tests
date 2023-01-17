@@ -33,3 +33,30 @@ paths.forEach(path => {
     })
   })
 })
+
+it.skip('dummy test for finding records without type', () => {
+  cy.visit('/catalog')
+
+  cy.contains('.filters .form-group', 'Type')
+    .find('.checkbox > label')
+    .map('dataset')
+    .map('submitUrl')
+    .map(submitUrl => new URL(submitUrl, Cypress.config('baseUrl')).searchParams.get('type'))
+    .then(types => {
+      const solrUrl = new URL('http://mistral.ugent.be:8983/solr/lludss/select')
+      solrUrl.searchParams.set('q', 'is_deleted:false')
+
+      for (let type of types) {
+        solrUrl.searchParams.append('fq', `-type:${type}`)
+      }
+
+      return solrUrl.toString()
+    })
+    .then(solrUrl => {
+      cy.request(solrUrl).then(response => {
+        const ids = response.body.response.docs.map(d => d['_id']).join(', ')
+
+        expect(ids).to.be.empty
+      })
+    })
+})
