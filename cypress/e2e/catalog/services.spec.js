@@ -165,7 +165,7 @@ describe('The catalog services', () => {
       })
 
       it('should not allow invalid e-mail addresses', () => {
-        cy.visit('/catalog/rug01:002020092/items/000000841754/requests/new')
+        cy.visit('/catalog/rug01:000734666/items/000000147906/requests/new')
 
         cy.get('#email').prop('type', 'text').type('user@ugent .be')
 
