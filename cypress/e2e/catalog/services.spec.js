@@ -62,57 +62,54 @@ describe('The catalog services', () => {
     describe('As an authenticated user', () => {
       beforeEach(cy.login)
 
-      it('should be possible to request an item for loan from BIB (also via locker)', () => {
-        cy.visit('/catalog/rug01:002772075')
+      it('should be possible to request an item for loan from RBIB (also via locker)', () => {
+        cy.visit('/catalog/rug01:000020449')
 
         cy.contains('.btn', 'Prepare for loan').click()
 
         cy.param('scan').should('be.null')
 
         cy.get('#content > h2').should('have.text', 'Prepare for loan')
-        cy.get('.meta-location').should('contain', 'Location in depot: BIB.')
+        cy.get('.meta-location').should('contain', 'Location in depot: RBIB.')
 
         cy.get('input[type=radio][name=pickup_location]').should('have.length', 2)
-        cy.get('input[type=radio][name=pickup_location][value=BIB]').should('be.checked')
-        cy.get('input[type=radio][name=pickup_location][value=BIB]').should('have.attr', 'data-locker', 'false')
-        cy.get('input[type=radio][name=pickup_location][value=BIBQ]').should('not.be.checked')
-        cy.get('input[type=radio][name=pickup_location][value=BIBQ]').should('have.attr', 'data-locker', 'true')
+        // Cubee is the default for RBIB
+        cy.get('input[type=radio][name=pickup_location][value=RBIBQ]').should('be.checked')
+        cy.get('input[type=radio][name=pickup_location][value=RBIBQ]').should('have.attr', 'data-locker', 'true')
+        cy.get('input[type=radio][name=pickup_location][value=RBIB]').should('not.be.checked')
+        cy.get('input[type=radio][name=pickup_location][value=RBIB]').should('have.attr', 'data-locker', 'false')
+        cy.get('fieldset.request-locker-options').should('be.visible')
+
+        cy.get('input[type=radio][name=pickup_location][value=RBIB]').click()
+        cy.get('input[type=radio][name=pickup_location][value=RBIBQ]').should('not.be.checked')
         cy.get('fieldset.request-locker-options').should('be.hidden')
 
-        cy.get('input[type=radio][name=pickup_location][value=BIBQ]').click()
-        cy.get('input[type=radio][name=pickup_location][value=BIB]').should('not.be.checked')
-        cy.get('fieldset.request-locker-options').should('not.be.hidden')
-      })
-
-      it('should be possible to request an item for loan from DEPX (also via locker)', () => {
-        cy.visit('/catalog/rug01:002366148')
-
-        cy.contains('.btn', 'Prepare for loan').click()
-
-        cy.param('scan').should('be.null')
-
-        cy.get('#content > h2').should('have.text', 'Prepare for loan')
-        cy.get('.meta-location').should('contain', 'Location in depot: DEP')
-
-        cy.get('input[type=radio][name=pickup_location]').should('have.length', 2)
-        cy.get('input[type=radio][name=pickup_location][data-locker=true]').should('be.visible')
+        cy.get('input[type=radio][name=pickup_location][value=RBIBQ]').click()
+        cy.get('input[type=radio][name=pickup_location][value=RBIB]').should('not.be.checked')
+        cy.get('fieldset.request-locker-options').should('be.visible')
       })
 
       it('should not be possible to request a dummy barcode item via locker', () => {
-        cy.visit('/catalog/rug01:000320574')
+        cy.visit('/catalog/rug01:000027542')
 
-        cy.contains('.btn', 'Prepare for loan').click()
+        cy.contains('Location in depot: RBIB.ARCHIEF 07409 HAN')
+          .closest('.libservice')
+          .contains('.btn', 'Prepare for loan')
+          .click()
 
+        cy.location('pathname').should('eq', '/en/catalog/rug01:000027542/items/28442-20/requests/new')
         cy.param('scan').should('be.null')
+        cy.param('service').should('eq', 'LOAN')
 
         cy.get('#content > h2').should('have.text', 'Prepare for loan')
-        cy.get('.meta-location').should('contain', 'Location in depot: BIB.')
+        cy.get('.meta-location').should('contain', 'Location in depot: RBIB.ARCHIEF 07409 HAN')
 
         cy.get('input[type=radio][name=pickup_location][data-locker=true]').should('not.exist')
       })
 
       it('should be possible to request an item for loan from an external library', () => {
         const loanCandidates = [
+          'rug01:001669228', // BIB
           'rug01:000434728', // LWBIB
           'rug01:000000509', // PPW
           'rug01:000002461', // TW01
@@ -129,9 +126,9 @@ describe('The catalog services', () => {
         cy.get('#content > h2').should('have.text', 'Prepare for loan')
         cy.get('.meta-location')
           .invoke('text')
-          .should('match', /Location in depot: (LWBIB|PPW|TW01)\./)
+          .should('match', /Location in depot: (BIB|LWBIB|PPW|TW01)\./)
 
-        // Should not be able to loan via locker because not BIB, RBIB or DEP*
+        // Should not be able to loan via locker because not RBIB
         cy.get('input[type=radio][name=pickup_location][data-locker=true]').should('not.exist')
       })
 
