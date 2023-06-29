@@ -62,31 +62,18 @@ describe('The catalog services', () => {
     describe('As an authenticated user', () => {
       beforeEach(cy.login)
 
-      it('should be possible to request an item for loan from RBIB (also via locker)', () => {
-        cy.visit('/catalog/rug01:000020449')
+      it('should be possible to request an item for loan from BIB', () => {
+        cy.visit('/catalog/rug01:002772075')
 
         cy.contains('.btn', 'Prepare for loan').click()
 
         cy.param('scan').should('be.null')
 
         cy.get('#content > h2').should('have.text', 'Prepare for loan')
-        cy.get('.meta-location').should('contain', 'Location in depot: RBIB.')
+        cy.get('.meta-location').should('contain', 'Location in depot: BIB.')
 
-        cy.get('input[type=radio][name=pickup_location]').should('have.length', 2)
-        // Cubee is the default for RBIB
-        cy.get('input[type=radio][name=pickup_location][value=RBIBQ]').should('be.checked')
-        cy.get('input[type=radio][name=pickup_location][value=RBIBQ]').should('have.attr', 'data-locker', 'true')
-        cy.get('input[type=radio][name=pickup_location][value=RBIB]').should('not.be.checked')
-        cy.get('input[type=radio][name=pickup_location][value=RBIB]').should('have.attr', 'data-locker', 'false')
-        cy.get('fieldset.request-locker-options').should('be.visible')
-
-        cy.get('input[type=radio][name=pickup_location][value=RBIB]').click()
-        cy.get('input[type=radio][name=pickup_location][value=RBIBQ]').should('not.be.checked')
-        cy.get('fieldset.request-locker-options').should('be.hidden')
-
-        cy.get('input[type=radio][name=pickup_location][value=RBIBQ]').click()
-        cy.get('input[type=radio][name=pickup_location][value=RBIB]').should('not.be.checked')
-        cy.get('fieldset.request-locker-options').should('be.visible')
+        cy.get('input[type=radio][name=pickup_location]').should('have.length', 1)
+        cy.contains('.btn', 'Prepare for loan').should('be.visible')
       })
 
       it('should not be possible to request a dummy barcode item via locker', () => {
@@ -128,8 +115,7 @@ describe('The catalog services', () => {
           .invoke('text')
           .should('match', /Location in depot: (BIB|LWBIB|PPW|TW01)\./)
 
-        // Should not be able to loan via locker because not RBIB
-        cy.get('input[type=radio][name=pickup_location][data-locker=true]').should('not.exist')
+        cy.contains('.btn', 'Prepare for loan').should('be.visible')
       })
 
       const sources = ['rug02', 'rug03', 'rug04']
