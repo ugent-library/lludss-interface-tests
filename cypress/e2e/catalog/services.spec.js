@@ -77,19 +77,19 @@ describe('The catalog services', () => {
       })
 
       it('should not be possible to request a dummy barcode item via locker', () => {
-        cy.visit('/catalog/rug01:000027542')
+        cy.visit('/catalog/rug01:000033939')
 
-        cy.contains('Location in depot: RBIB.ARCHIEF 07409 HAN')
+        cy.contains('Location in depot: RBIB.ARCHIEF 06901')
           .closest('.libservice')
           .contains('.btn', 'Prepare for loan')
           .click()
 
-        cy.location('pathname').should('eq', '/en/catalog/rug01:000027542/items/28442-20/requests/new')
+        cy.location('pathname').should('eq', '/en/catalog/rug01:000033939/items/34839-10/requests/new')
         cy.param('scan').should('be.null')
         cy.param('service').should('eq', 'LOAN')
 
         cy.get('#content > h2').should('have.text', 'Prepare for loan')
-        cy.get('.meta-location').should('contain', 'Location in depot: RBIB.ARCHIEF 07409 HAN')
+        cy.get('.meta-location').should('contain', 'Location in depot: RBIB.ARCHIEF 06901')
 
         cy.get('input[type=radio][name=pickup_location][data-locker=true]').should('not.exist')
       })
