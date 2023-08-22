@@ -29,5 +29,8 @@
   },
   "devDependencies": {
     "js-precommit-hook": "https://github.com/ugent-library/js-precommit-hook#v2.0.0"
+  },
+  "resolutions": {
+    "@cypress/request": "^3.0.0"
   }
 }
