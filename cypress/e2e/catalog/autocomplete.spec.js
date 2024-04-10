@@ -5,7 +5,7 @@ describe("The autocomplete feature", () => {
     describe(`in ${lang} language`, () => {
       const doTests = () => {
         it("should produce suggestions upon typing", () => {
-          cy.intercept("GET", "/autocomplete/**").as("ac-ajax");
+          cy.intercept("GET", "/autocomplete**").as("ac-ajax");
 
           cy.get(".tt-menu").as("menu").should("not.be.visible");
 
