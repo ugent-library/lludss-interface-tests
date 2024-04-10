@@ -1,66 +1,70 @@
-import { facetTypes } from '../../support/constants'
+import { facetTypes } from "../../support/constants";
 
-describe('The sort mechanism', () => {
-  const sortTypes = ['new to old', 'old to new', 'by title']
-  sortTypes.forEach(sort => {
+describe("The sort mechanism", () => {
+  const sortTypes = ["new to old", "old to new", "by title"];
+  sortTypes.forEach((sort) => {
     it(`should be able to sort ${sort}`, () => {
-      cy.visit('/catalog')
+      cy.visit("/catalog");
 
-      cy.contains('#sort-dropdown .dropdown-menu a', sort).as('sort').should('not.be.visible')
+      cy.contains("#sort-dropdown .dropdown-menu a", sort)
+        .as("sort")
+        .should("not.be.visible");
 
-      cy.get('#sort-dropdown button a').as('sorted').click()
+      cy.get("#sort-dropdown button a").as("sorted").click();
 
-      cy.get('@sort').should('be.visible').click()
+      cy.get("@sort").should("be.visible").click();
 
       let expectToBeSorted = () => {
-        cy.get('@sorted').prop('innerText').should('eq', `Sort ${sort}`)
-      }
+        cy.get("@sorted").prop("innerText").should("eq", `Sort ${sort}`);
+      };
 
       let goToRandomPage = () => {
-        cy.getCount().then(count => {
+        cy.getCount().then((count) => {
           if (count > 20) {
-            cy.get('ul.pagination > li:not(.disabled):not(.active) a')
-              .map('href')
+            cy.get("ul.pagination > li:not(.disabled):not(.active) a")
+              .map("href")
               .random()
-              .then(url => {
+              .then((url) => {
                 cy.wrap(url, { log: false })
-                  .param('page', 1)
-                  .then(p => cy.log(`Going to page ${p}`))
+                  .param("page", 1)
+                  .then((p) => cy.log(`Going to page ${p}`));
 
-                cy.wrap(url, { log: false })
+                cy.wrap(url, { log: false });
               })
               .then(cy.visit)
-              .then(expectToBeSorted)
+              .then(expectToBeSorted);
           } else {
-            cy.log('Cannot switch to other page, not enough results')
+            cy.log("Cannot switch to other page, not enough results");
           }
-        })
-      }
+        });
+      };
 
-      expectToBeSorted()
+      expectToBeSorted();
 
-      goToRandomPage()
+      goToRandomPage();
 
       // Click the book type facet to make sure there will be enough matching results for the random tests
-      cy.contains('.filters .checkbox label', 'book').click()
+      cy.contains(".filters .checkbox label", "book").click();
 
       // Click random a value in each facet and retest
-      Object.values(facetTypes).forEach(facet => {
-        cy.contains('.filters h4', facet)
-          .closest('.form-group')
-          .find('.checkbox .label')
-          .map('innerText')
+      Object.values(facetTypes).forEach((facet) => {
+        cy.contains(".filters h4", facet)
+          .closest(".form-group")
+          .find(".checkbox .label")
+          .map("innerText")
           .random()
-          .then(value => {
-            cy.log(`Clicking ${facet} facet ${value}`)
+          .then((value) => {
+            cy.log(`Clicking ${facet} facet ${value}`);
 
-            cy.contains('.filters .checkbox label', value).closest('.checkbox').click()
+            cy.contains(".filters .checkbox label", value)
+              .closest(".checkbox")
+              .click();
 
-            expectToBeSorted()
+            expectToBeSorted();
 
-            goToRandomPage()
-          })
-      })
-    })
-  })
-})
+            goToRandomPage();
+          });
+      });
+    });
+  });
+});

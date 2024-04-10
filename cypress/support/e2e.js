@@ -1,6 +1,6 @@
-import 'cypress-common'
+import "cypress-common";
 
-import './commands/get-count'
-import './commands/login'
+import "./commands/get-count";
+import "./commands/login";
 
-chai.use(require('chai-sorted'))
+chai.use(require("chai-sorted"));

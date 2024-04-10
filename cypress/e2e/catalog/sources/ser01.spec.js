@@ -1,7 +1,7 @@
-describe('Data source ser01', () => {
-  it('should have more than 45K hits', () => {
-    cy.visit('/catalog/source:ser01')
+describe("Data source ser01", () => {
+  it("should have more than 45K hits", () => {
+    cy.visit("/catalog/source:ser01");
 
-    cy.getCount().should('be.greaterThan', 45000)
-  })
-})
+    cy.getCount().should("be.greaterThan", 45000);
+  });
+});
