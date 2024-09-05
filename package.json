@@ -23,7 +23,7 @@
   },
   "dependencies": {
     "chai-sorted": "^0.2.0",
-    "cypress": "^13.11.0",
+    "cypress": "^13.14.2",
     "cypress-common": "https://github.com/ugent-library/cypress-common.git#3.14.0",
     "fast-xml-parser": "^4.4.1"
   },
