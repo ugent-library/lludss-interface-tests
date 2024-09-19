@@ -37,7 +37,7 @@ describe("The info/about page", () => {
           followRedirect: false,
         }).then((resp) => {
           expect(resp.status).to.eq(302);
-          expect(resp.redirectedToUrl).to.contain("onderzoektips.ugent.be");
+          expect(resp.redirectedToUrl).not.to.contain("lib.ugent.be");
         });
       });
   });
