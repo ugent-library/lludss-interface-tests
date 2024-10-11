@@ -9,6 +9,7 @@ module.exports = defineConfig({
     "*google-analytics.com",
     "*hotjar.com",
     "*ugent.containers.piwik.pro",
+    "covers.openlibrary.org",
   ],
   env: {
     widgetsBaseUrl: "http://widgets.lib.ugent.be",
