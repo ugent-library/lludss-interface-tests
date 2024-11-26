@@ -24,10 +24,13 @@
   "dependencies": {
     "chai-sorted": "^0.2.0",
     "cypress": "^13.15.0",
-    "cypress-common": "https://github.com/ugent-library/cypress-common.git#3.14.0",
+    "cypress-common": "ugent-library/cypress-common",
     "fast-xml-parser": "^4.4.1"
   },
   "devDependencies": {
-    "js-precommit-hook": "https://github.com/ugent-library/js-precommit-hook#v2.0.0"
+    "js-precommit-hook": "ugent-library/js-precommit-hook"
+  },
+  "resolutions": {
+    "cross-spawn": "^7.0.5"
   }
 }
