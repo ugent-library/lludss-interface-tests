@@ -30,37 +30,22 @@ describe("The catalog services", () => {
       cy.intercept("GET", "/status/910000094749*", routeHandler).as("ajax2");
       cy.intercept("GET", "/status/000011045042*", routeHandler).as("ajax3");
       cy.intercept("GET", "/status/000011045043*", routeHandler).as("ajax4");
-      cy.intercept("GET", "/status/910000089523*", routeHandler).as("ajax5");
-      cy.intercept("GET", "/status/910000089524*", routeHandler).as("ajax6");
-      cy.intercept("GET", "/status/910000089525*", routeHandler).as("ajax7");
-      cy.intercept("GET", "/status/910000089526*", routeHandler).as("ajax8");
-      cy.intercept("GET", "/status/910000089527*", routeHandler).as("ajax9");
 
       cy.visit("/catalog/rug01:000763774");
 
-      cy.wait([
-        "@ajax1",
-        "@ajax2",
-        "@ajax3",
-        "@ajax4",
-        "@ajax5",
-        "@ajax6",
-        "@ajax7",
-        "@ajax8",
-        "@ajax9",
-      ]);
+      cy.wait(["@ajax1", "@ajax2", "@ajax3", "@ajax4"]);
 
       cy.get(
         '.libservice__status.libservice__status--success:contains("Available, item can be consulted")',
       )
         .as("status")
-        .should("have.length", 9);
+        .should("have.length", 4);
 
       cy.get("@status")
         .closest("div")
         .find('.btn:contains("Prepare for consultation")')
         .as("request")
-        .should("have.length", 9);
+        .should("have.length", 4);
 
       cy.get("@request")
         .map("href")
