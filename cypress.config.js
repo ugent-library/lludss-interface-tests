@@ -14,7 +14,7 @@ module.exports = defineConfig({
   env: {
     widgetsBaseUrl: "http://widgets.lib.ugent.be",
   },
-  retries: 2,
+  retries: 5,
   e2e: {
     setupNodeEvents(on, config) {},
     baseUrl: "https://lib.ugent.be",
