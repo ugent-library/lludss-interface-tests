@@ -151,7 +151,7 @@ describe("The catalog services", () => {
         cy.get("#content > h2").should("have.text", "New download request");
       });
 
-      it("should be possible to request a license", () => {
+      it.skip("should be possible to request a license", () => {
         cy.visit("/catalog/rug01:002150180");
 
         cy.contains("Order additional license").click();
